@@ -4,22 +4,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Backlift Documentation</title>
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
-    <link type="text/css" rel="stylesheet" href="/docs/css/reset.css">
-    <link type="text/css" rel="stylesheet" href="/docs/css/docs.css">
-    <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
+    <link type="text/css" rel="stylesheet" href="/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="/css/print.css" media="print">
     <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
     
-    <script type="text/javascript" src="/docs/js/viewer.js"></script>
+    <script type="text/javascript" src="/js/viewer.js"></script>
 </head>
 <body>
     <div id="page">
         <a name="top" />
         
             <header id="header">
-                <h1><a href="/docs/">Backlift Documentation</a></h1>
+                <h1><a href="/">Backlift Documentation</a></h1>
             </header>
         
         
@@ -28,7 +28,33 @@
             <ol>
                 
                     <li>
-                        <a href="/docs/readme.html#docs">docs</a>
+                        <a href="/readme.html#introduction">Introduction</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/readme.html#philosophy-lite">Philosophy (lite)</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/readme.html#getting-started">Getting Started</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/readme.html#setup-the-backlift-command-line-utility">Setup the Backlift Command Line Utility</a></li>
+                                
+                                    <li><a href="/readme.html#create-and-upload-a-new-app">Create and Upload a new app</a></li>
+                                
+                                    <li><a href="/readme.html#view-and-manage-your-app">View and manage your app</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/readme.html#further-documentation">Further documentation</a>
                         
                             <ol>
                                 
@@ -41,15 +67,98 @@
     </div>
 
 <article id="content">
-    <a name="docs"></a><h1>docs</h1>
-<p>backlift documentation</p>
+    <a name="introduction"></a><h1>Introduction</h1>
+<p>Backlift wants to make building websites easier, faster and more creative. We hope it will be useful for:
+
+</p>
+<ul>
+<li>rapid user experience prototyping,</li>
+<li>learning to write front-end javascript code, and eventually,</li>
+<li>building production websites used by millions.</li>
+</ul>
+<p>Please visit <a href="https://www.backlift.com">backlift.com</a> to access your backlift account.
+
+</p>
+<p>Bugs or feature requests for backlift can be submitted to the <a href="http://github.com/backlift/docs/issues">issues</a> page of this documentation&#39;s github project.
+
+</p>
+<p>The source to this documentation is available <a href="http://github.com/backlift/docs">on github</a>. We will happily accept pull requests to the docs.
+
+</p>
+<p>Thanks!
+
+</p>
+<a name="philosophy-lite"></a><h2>Philosophy (lite)</h2>
+<ul>
+<li>Backlift doesn&#39;t want to change the way you work, it wants to eliminate work. </li>
+<li>Backlift isn&#39;t a new library or API, it works with existing libraries, such as Backbone.js.</li>
+<li>Backlift doesn&#39;t want to lock you in. The code you deploy to backlift can be used with a different stack. If at some point you outgrow backlift, you can migrate to a different back-end without rewriting your front-end code.</li>
+</ul>
+<a name="getting-started"></a><h1>Getting Started</h1>
+<a name="setup-the-backlift-command-line-utility"></a><h2>Setup the Backlift Command Line Utility</h2>
+<p>Open up your terminal and download the Backlift Command Line Interface (CLI) by typing:
+
+</p>
+<pre><code>sudo easy_install backlift</code></pre>
+<p>Alternatively, you can use pip to install the Backlift CLI into a virtual environment. If you don&#39;t know what that means, don&#39;t worry about it right now.
+
+</p>
+<p>Once you have backlift installed, setup backlift using your account&#39;s API key:
+
+</p>
+<pre><code>backlift setup &lt;api-key&gt;</code></pre>
+<p>(You will find your api-key in your account dashboard.) 
+
+</p>
+<p>Now you&#39;re ready to create new apps and upload them to backlift.
+
+</p>
+<p>From time to time you should make sure that you have the most recent version of the Backlift CLI. You can check that by typing <code>backlift --version</code>. It should match the &#39;Backlift CLI current version&#39; listed on your account dashboard. You can update your Backlift CLI by entering the command 
+
+</p>
+<pre><code>sudo easy_install --update backlift.</code></pre>
+<a name="create-and-upload-a-new-app"></a><h2>Create and Upload a new app</h2>
+<p>Create a new app with the command:
+
+</p>
+<pre><code>backlift create newapp</code></pre>
+<p>This will create a new folder in the current directory called &#39;newapp&#39; and begin downloading the backlift default project template. Once the project template has finished downloading, check it out by opening the &#39;newapp&#39; folder with a text editor.
+
+</p>
+<p>To see this app running on a public web server, first change directories into the &#39;newapp&#39; folder and type &#39;backlift push&#39;.
+
+</p>
+<pre><code>cd newapp
+backlift push</code></pre>
+<p>This will upload the content of the &#39;newapp&#39; folder to Backlift. Alternatively you can use the command:
+    <code>backlift watch</code>
+
+</p>
+<p>The watch command will first upload the &#39;newapp&#39; folder and then wait for changes to the project. Any time you edit and save a file in the &#39;newapp&#39; folder while the watch command is running, your changes will automatically by synced to Backlift.
+
+
+</p>
+<a name="view-and-manage-your-app"></a><h2>View and manage your app</h2>
+<p>You can launch a browser to view your app by typing:
+
+</p>
+<pre><code>backlift open</code></pre>
+<p>You can alternatively view the website&#39;s admin page by typing:
+
+</p>
+<pre><code>backlift admin</code></pre>
+<p>That&#39;s all there is to it! The basic Backlift template contains a tutorial that will show you how to build a backbone.js app with Backlift. 
+
+</p>
+<a name="further-documentation"></a><h1>Further documentation</h1>
+<p>The full documentation can be found at <a href="http://backlift.github.com/docs">http://backlift.github.com/docs</a>. </p>
 
 </article>
 
         <footer id="footer">
             Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
-            <a href="#top">Back to top</a> - <a href="/docs/all.html">Everything on a single page</a>
-            - <a href="?print=1">Print current page</a> - <a href="/docs/all.html?print=1">Print all pages</a>
+            <a href="#top">Back to top</a> - <a href="/all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="/all.html?print=1">Print all pages</a>
             
         </footer>
     </div>
