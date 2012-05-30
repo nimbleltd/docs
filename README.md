@@ -84,6 +84,3 @@ You can alternatively view the website's admin page by typing:
 
 That's all there is to it! The basic Backlift template contains a tutorial that will show you how to build a backbone.js app with Backlift. 
 
-## Further documentation
-
-The full documentation can be found at http://backlift.github.com/docs. 
