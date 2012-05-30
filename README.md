@@ -1,4 +1,6 @@
-# Introduction
+# Backlift
+
+## Introduction 
 
 Backlift wants to make building websites easier, faster and more creative. We hope it will be useful for:
 
@@ -19,6 +21,7 @@ Thanks!
 * Backlift doesn't want to change the way you work, it wants to eliminate work. 
 * Backlift isn't a new library or API, it works with existing libraries, such as Backbone.js.
 * Backlift doesn't want to lock you in. The code you deploy to backlift can be used with a different stack. If at some point you outgrow backlift, you can migrate to a different back-end without rewriting your front-end code.
+
 
 #  Getting Started
 
@@ -74,6 +77,6 @@ You can alternatively view the website's admin page by typing:
 
 That's all there is to it! The basic Backlift template contains a tutorial that will show you how to build a backbone.js app with Backlift. 
 
-# Further documentation
+## Further documentation
 
 The full documentation can be found at http://backlift.github.com/docs. 
