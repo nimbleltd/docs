@@ -20,6 +20,8 @@ Please visit [backlift.com](https://www.backlift.com) to access your backlift ac
 
 Bugs or feature requests for backlift can be submitted to the [issues](http://github.com/backlift/docs/issues) page of this documentation's github project.
 
+Our roadmap is posted [here](http://roadma.ps/28R).
+
 The source to this documentation is available [on github](http://github.com/backlift/docs). We will happily accept pull requests to the docs.
 
 

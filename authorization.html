@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Backlift Documentation</title>
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+    <link type="text/css" rel="stylesheet" href="/docs/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="/docs/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    
+        <link type="text/css" rel="stylesheet" href="/style.css">
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    
+    <script type="text/javascript" src="/docs/js/viewer.js"></script>
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        
+            <header id="header">
+                <h1><a href="/docs/">Backlift Documentation</a></h1>
+            </header>
+        
+        
+    <div id="sidebar">
+        <nav id="toc">
+            <ol>
+                
+                    <li>
+                        <a href="/docs/readme.html#backlift">Backlift</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/readme.html#introduction">Introduction</a></li>
+                                
+                                    <li><a href="/docs/readme.html#philosophy-lite">Philosophy (lite)</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/readme.html#getting-started">Getting Started</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/readme.html#setup-the-backlift-command-line-utility">Setup the Backlift Command Line Utility</a></li>
+                                
+                                    <li><a href="/docs/readme.html#create-and-upload-a-new-app">Create and Upload a new app</a></li>
+                                
+                                    <li><a href="/docs/readme.html#view-and-manage-your-app">View and manage your app</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/basics.html#backlift-basics">Backlift basics</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/basics.html#app-templates">App templates</a></li>
+                                
+                                    <li><a href="/docs/basics.html#project-layout">Project layout</a></li>
+                                
+                                    <li><a href="/docs/basics.html#the-admin-site">The admin site</a></li>
+                                
+                                    <li><a href="/docs/basics.html#data-persistence">Data persistence</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/authorization.html#authorization">Authorization</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/authorization.html#creating-users-and-signing-in">Creating users and signing in</a></li>
+                                
+                                    <li><a href="/docs/authorization.html#permissions-and-access-control">Permissions and access control</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+            </ol>
+        </nav>
+    </div>
+
+<article id="content">
+    <a name="authorization"></a><h1>Authorization</h1>
+<blockquote>
+<p>   alert: This section documents preliminary functionality. 
+   The functionality described below is still under development.
+
+</p>
+</blockquote>
+<a name="creating-users-and-signing-in"></a><h2>Creating users and signing in</h2>
+<p>Backlift exposes a restful API to facilitate user creation and management:
+
+</p>
+<ul>
+<li><p><strong>Creating users:</strong> (POST /backlift/auth/register)</p>
+<p>You can create new users by sending a POST request to your app&#39;s /backlift/auth/register URL. The data you send should contain a &#39;username&#39; attribute and a &#39;password&#39; attribute, or &#39;password1&#39; and &#39;password2&#39; attributes. </p>
+<pre><code>POST /backlift/auth/register {&quot;username&quot;: &quot;...&quot;, &quot;password&quot;: &quot;...&quot;}</code></pre>
+<p>Currently backlift does not perform validation on usernames or passwords, except that they must exist, and in the case of password1 and password2, they must match.</p>
+<p>Passwords are salted and hashed before being stored using <a href="http://bcrypt.sourceforge.net/">bcrypt</a>.</p>
+</li>
+<li><p><strong>Logging in:</strong> (POST /backlift/auth/login)</p>
+<p>To log in a user, POST to the login url with a pair of &#39;username&#39; and &#39;password&#39; attributes. They will be compared against the salted and hashed password store and if they match, the user will be logged in.</p>
+<p>When a user is logged in, two cookies will be set on the client, a session ID and a &#39;user&#39; cookie that contains the user id.</p>
+</li>
+<li><p><strong>Logging out:</strong> (POST or GET /backlift/auth/logout)</p>
+<p>To log out a user, POST or GET to the logout url.</p>
+<p>If you send a GET request, you can include a &#39;_next&#39; url parameter with a redirect url where the user will be sent after being logged out. For example the following link will log out a user and return them to the &#39;dashboard&#39; page:</p>
+<pre><code>&lt;a href=&quot;/backlift/auth/logout?_next=/dashboard&quot;&gt; Log out &lt;/a&gt;</code></pre>
+<p>By default the user will be redirected to &#39;/&#39; if logged out via a GET request.</p>
+</li>
+</ul>
+<a name="permissions-and-access-control"></a><h2>Permissions and access control</h2>
+<p>Backlift&#39;s authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
+
+</p>
+<p>Backlift uses the following attributes on objects in order to control access:
+
+</p>
+<ul>
+<li><p><strong>_owner</strong>: Whenever a user is logged-in, any objects created will have the _owner attribute set to the current user&#39;s id. This attribute is read-only and managed by the server.</p>
+</li>
+<li><p><strong>_groups</strong>: A list of groups to which the object belongs.</p>
+</li>
+<li><p><strong>_public_permissions</strong>, <strong>_group_permissions</strong>, <strong>_owner_permissions</strong>: Governs what actions are authorized on this object. It is a string containing any of the following characters. If one of the characters below is included in the string, it will grant the associated permission:</p>
+<ul>
+<li><strong>&#39;r&#39;</strong>: read   </li>
+<li><strong>&#39;w&#39;</strong>: write   </li>
+<li><strong>&#39;c&#39;</strong>: create  </li>
+<li><strong>&#39;d&#39;</strong>: delete</li>
+</ul>
+</li>
+</ul>
+<p>For example, the following object is only accessible to the owner:
+
+</p>
+<pre><code>{ &quot;_owner&quot;: &quot;...&quot;, 
+  &quot;_id&quot;: &quot;...&quot;, 
+  &quot;_owner_permissions&quot;: &quot;rwcd&quot;,
+  &quot;_group_permissions&quot;: &quot;&quot;,
+  &quot;_public_permissions&quot;: &quot;&quot;}</code></pre>
+<p>These are the default permissions that an object will be assigned, if any of the below attributes are missing on an object:
+
+</p>
+<ul>
+<li>owner: read, write, create, delete</li>
+<li>group: read, write</li>
+<li>public: read</li>
+</ul>
+
+</article>
+
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="/docs/all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="/docs/all.html?print=1">Print all pages</a>
+            
+        </footer>
+    </div>
+</body>
+</html>

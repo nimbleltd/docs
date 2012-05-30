@@ -9,6 +9,8 @@
     <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
     <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
     
+        <link type="text/css" rel="stylesheet" href="/style.css">
+    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
     
@@ -47,6 +49,9 @@
 
 </p>
 <p>Bugs or feature requests for backlift can be submitted to the <a href="http://github.com/backlift/docs/issues">issues</a> page of this documentation&#39;s github project.
+
+</p>
+<p>Our roadmap is posted <a href="http://roadma.ps/28R">here</a>.
 
 </p>
 <p>The source to this documentation is available <a href="http://github.com/backlift/docs">on github</a>. We will happily accept pull requests to the docs.
@@ -115,6 +120,155 @@ backlift push</code></pre>
 <p>That&#39;s all there is to it! The basic Backlift template contains a tutorial that will show you how to build a backbone.js app with Backlift. 
 
 </p>
+
+<a name="backlift-basics"></a><h1>Backlift basics</h1>
+<a name="app-templates"></a><h2>App templates</h2>
+<p>Backlift comes with a set of examples and starter templates that you can access directly with the backlift create command. Just type:
+
+</p>
+<pre><code>backlift create:&lt;template name&gt; newapp </code></pre>
+<p>You can find a list of available templates on github at <a href="http://github.com/backlift/backlift-templates">http://github.com/backlift/backlift-templates</a>.
+
+</p>
+<p>We&#39;d love to add your example or starter template to the backlift command line utility. Just submit a pull request to the github project above. We&#39;ll evaluate it and, if we approve, we&#39;ll make it available directly by typing <code>backlift create:&lt;your app here&gt;</code>.
+
+</p>
+<a name="project-layout"></a><h2>Project layout</h2>
+<p>At a minimum your backlift app has three files, a main javascript file, a javascript template (JST) file and a CSS file:
+
+</p>
+<ul>
+<li><p><strong>app/scripts/main.js</strong>: At a minimum this file contains a router that maps URLs to Views. It can also contain data Models and Collections, and Views that display the data. However it&#39;s generally best to separate out those classes and place them into other .js files.</p>
+</li>
+<li><p><strong>app/templates/*.jst</strong>: JST stands for JavaScript Template. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Larger sites may have several templates, one for each chunk of data that will be displayed. Also JST files can be rendered heirarchically, allowing one JST to act as a layout for the rest of the website. JSTs will be available to your code via the <code>window.JST</code> object. For example, a template called &#39;home.jst&#39; will be available to your app as <code>window.JST.home</code> or just <code>JST.home</code>. </p>
+</li>
+<li><p><strong>app/styles/styles.css</strong>: controls how your website looks</p>
+</li>
+</ul>
+<p>There are a few additional project files:
+
+</p>
+<ul>
+<li><p><strong>the /libraries folder</strong>: This is where third party libraries, such as bootstrap.css and backbone.js go.</p>
+</li>
+<li><p><strong>the setup.js file</strong>: For some backlift template, a setup javascript file is used to create the App namespace and define commonly used convenience classes.</p>
+</li>
+<li><p><strong>the .backlift file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
+</li>
+</ul>
+<p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
+
+</p>
+<pre><code>&lt;your app id&gt;.backliftapp.com/public/&lt;file path&gt; </code></pre>
+<p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
+
+</p>
+<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your .backlift file.
+
+
+</p>
+<a name="the-admin-site"></a><h2>The admin site</h2>
+<p>Each app gets a unique admin page that can be used for debugging and, in the future, managing security features like validation and authorization. You can view your app&#39;s admin page by running:
+
+</p>
+<pre><code>backlift admin</code></pre>
+<p>from your app&#39;s working folder, or visit
+
+</p>
+<pre><code>https://www.backlift.com/admin#&lt;app id&gt;</code></pre>
+<p>As you develop your app, this page will change to reflect your app&#39;s collections and request history. This makes it a valuable debugging tool.
+
+
+</p>
+<a name="data-persistence"></a><h2>Data persistence</h2>
+<p>When communicating with the Backlift server, as long as you prefix your AJAX urls with &quot;/backliftapp/&quot;, the backlift server will automatically store and fetch any json data that you send. For example, in backbone, you can set the url attribute of your collections, or the urlRoot attribute of your models using the &quot;/backliftapp/&quot; prefix and then use backbone&#39;s standard save or create methods.
+
+</p>
+<p>Specifically:
+
+</p>
+<ul>
+<li><p>GET /backliftapp/&lt;collection&gt;: will retrieve a list of the items in the collection.</p>
+</li>
+<li><p>POST /backliftapp/&lt;collection&gt;: will create a new item and add it to the collection.</p>
+</li>
+<li><p>PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update an item in the collection.</p>
+</li>
+<li><p>DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete an item.</p>
+</li>
+</ul>
+<p>The data you send can either be a JSON object or a url-encoded set of key-value pairs.
+
+</p>
+<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+</p>
+
+<a name="authorization"></a><h1>Authorization</h1>
+<blockquote>
+<p>   alert: This section documents preliminary functionality. 
+   The functionality described below is still under development.
+
+</p>
+</blockquote>
+<a name="creating-users-and-signing-in"></a><h2>Creating users and signing in</h2>
+<p>Backlift exposes a restful API to facilitate user creation and management:
+
+</p>
+<ul>
+<li><p><strong>Creating users:</strong> (POST /backlift/auth/register)</p>
+<p>You can create new users by sending a POST request to your app&#39;s /backlift/auth/register URL. The data you send should contain a &#39;username&#39; attribute and a &#39;password&#39; attribute, or &#39;password1&#39; and &#39;password2&#39; attributes. </p>
+<pre><code>POST /backlift/auth/register {&quot;username&quot;: &quot;...&quot;, &quot;password&quot;: &quot;...&quot;}</code></pre>
+<p>Currently backlift does not perform validation on usernames or passwords, except that they must exist, and in the case of password1 and password2, they must match.</p>
+<p>Passwords are salted and hashed before being stored using <a href="http://bcrypt.sourceforge.net/">bcrypt</a>.</p>
+</li>
+<li><p><strong>Logging in:</strong> (POST /backlift/auth/login)</p>
+<p>To log in a user, POST to the login url with a pair of &#39;username&#39; and &#39;password&#39; attributes. They will be compared against the salted and hashed password store and if they match, the user will be logged in.</p>
+<p>When a user is logged in, two cookies will be set on the client, a session ID and a &#39;user&#39; cookie that contains the user id.</p>
+</li>
+<li><p><strong>Logging out:</strong> (POST or GET /backlift/auth/logout)</p>
+<p>To log out a user, POST or GET to the logout url.</p>
+<p>If you send a GET request, you can include a &#39;_next&#39; url parameter with a redirect url where the user will be sent after being logged out. For example the following link will log out a user and return them to the &#39;dashboard&#39; page:</p>
+<pre><code>&lt;a href=&quot;/backlift/auth/logout?_next=/dashboard&quot;&gt; Log out &lt;/a&gt;</code></pre>
+<p>By default the user will be redirected to &#39;/&#39; if logged out via a GET request.</p>
+</li>
+</ul>
+<a name="permissions-and-access-control"></a><h2>Permissions and access control</h2>
+<p>Backlift&#39;s authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
+
+</p>
+<p>Backlift uses the following attributes on objects in order to control access:
+
+</p>
+<ul>
+<li><p><strong>_owner</strong>: Whenever a user is logged-in, any objects created will have the _owner attribute set to the current user&#39;s id. This attribute is read-only and managed by the server.</p>
+</li>
+<li><p><strong>_groups</strong>: A list of groups to which the object belongs.</p>
+</li>
+<li><p><strong>_public_permissions</strong>, <strong>_group_permissions</strong>, <strong>_owner_permissions</strong>: Governs what actions are authorized on this object. It is a string containing any of the following characters. If one of the characters below is included in the string, it will grant the associated permission:</p>
+<ul>
+<li><strong>&#39;r&#39;</strong>: read   </li>
+<li><strong>&#39;w&#39;</strong>: write   </li>
+<li><strong>&#39;c&#39;</strong>: create  </li>
+<li><strong>&#39;d&#39;</strong>: delete</li>
+</ul>
+</li>
+</ul>
+<p>For example, the following object is only accessible to the owner:
+
+</p>
+<pre><code>{ &quot;_owner&quot;: &quot;...&quot;, 
+  &quot;_id&quot;: &quot;...&quot;, 
+  &quot;_owner_permissions&quot;: &quot;rwcd&quot;,
+  &quot;_group_permissions&quot;: &quot;&quot;,
+  &quot;_public_permissions&quot;: &quot;&quot;}</code></pre>
+<p>These are the default permissions that an object will be assigned, if any of the below attributes are missing on an object:
+
+</p>
+<ul>
+<li>owner: read, write, create, delete</li>
+<li>group: read, write</li>
+<li>public: read</li>
+</ul>
 
 </div>
         <footer id="footer">
