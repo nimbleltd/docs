@@ -57,15 +57,6 @@
                         
                     </li>
                 
-                    <li>
-                        <a href="/docs/basics.html#test">test</a>
-                        
-                            <ol>
-                                
-                            </ol>
-                        
-                    </li>
-                
             </ol>
         </nav>
     </div>
@@ -73,13 +64,24 @@
 <article id="content">
     <a name="backlift"></a><h1>Backlift</h1>
 <a name="introduction"></a><h2>Introduction</h2>
-<p>Backlift wants to make building websites easier, faster and more creative. We hope it will be useful for:
+<p>Backlift wants to make building and deploying websites easier, faster and more creative. 
+
+</p>
+<p>Backlift&#39;s server, templates and helper libraries support:
+
+</p>
+<ul>
+<li><strong>Asynchronous updates:</strong> Build apps that respond immediately to user actions while data is sent the the server in the background. </li>
+<li><strong>API discovery:</strong> Backlift will let you persist data without specifying the API up front. If you follow standard RESTful conventions, backlift will accept whatever data you throw at it.</li>
+<li><strong>Familiar libraries:</strong> Backlift currently works with <a href="http://backbonejs.org">Backbone.js</a>. We plan to integrate other javascript MVC libraries in the future.</li>
+</ul>
+<p>Backlift&#39;s goals are to facilitate:
 
 </p>
 <ul>
 <li>rapid user experience prototyping,</li>
 <li>learning to write front-end javascript code, and eventually,</li>
-<li>building production websites used by millions.</li>
+<li>deploying production websites used by millions.</li>
 </ul>
 <p>Please visit <a href="https://www.backlift.com">backlift.com</a> to access your backlift account.
 
@@ -89,13 +91,11 @@
 </p>
 <p>The source to this documentation is available <a href="http://github.com/backlift/docs">on github</a>. We will happily accept pull requests to the docs.
 
-</p>
-<p>Thanks!
 
 </p>
 <a name="philosophy-lite"></a><h2>Philosophy (lite)</h2>
 <ul>
-<li>Backlift doesn&#39;t want to change the way you work, it wants to eliminate work. </li>
+<li>Backlift doesn&#39;t want to change the way you work, it wants to reduce your workload. </li>
 <li>Backlift isn&#39;t a new library or API, it works with existing libraries, such as Backbone.js.</li>
 <li>Backlift doesn&#39;t want to lock you in. The code you deploy to backlift can be used with a different stack. If at some point you outgrow backlift, you can migrate to a different back-end without rewriting your front-end code.</li>
 </ul>
@@ -105,16 +105,16 @@
 
 </p>
 <pre><code>sudo easy_install backlift</code></pre>
-<p>Alternatively, you can use pip to install the Backlift CLI into a virtual environment. If you don&#39;t know what that means, don&#39;t worry about it right now.
+<p>Alternatively, you can use pip to install the Backlift CLI into a virtual environment.
 
 </p>
-<p>Once you have backlift installed, setup backlift using your account&#39;s API key:
+<p>Once you have backlift installed, create an account at <a href="https://backlift.com">backlift.com</a> by clicking on the &#39;Sign-in&#39; button in the upper right corner. You will need a registration key. In order to obtain one please click the &#39;Get Early Access&#39; link and supply your email address. We will send you a key as soon as possible.
+
+</p>
+<p>Once you have your api-key, setup backlift with the command:
 
 </p>
 <pre><code>backlift setup &lt;api-key&gt;</code></pre>
-<p>(You will find your api-key in your account dashboard.) 
-
-</p>
 <p>Now you&#39;re ready to create new apps and upload them to backlift.
 
 </p>

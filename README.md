@@ -2,11 +2,19 @@
 
 ## Introduction 
 
-Backlift wants to make building websites easier, faster and more creative. We hope it will be useful for:
+Backlift wants to make building and deploying websites easier, faster and more creative. 
+
+Backlift's server, templates and helper libraries support:
+
+* **Asynchronous updates:** Build apps that respond immediately to user actions while data is sent the the server in the background. 
+* **API discovery:** Backlift will let you persist data without specifying the API up front. If you follow standard RESTful conventions, backlift will accept whatever data you throw at it.
+* **Familiar libraries:** Backlift currently works with [Backbone.js](http://backbonejs.org). We plan to integrate other javascript MVC libraries in the future.
+
+Backlift's goals are to facilitate:
 
 * rapid user experience prototyping,
 * learning to write front-end javascript code, and eventually,
-* building production websites used by millions.
+* deploying production websites used by millions.
 
 Please visit [backlift.com](https://www.backlift.com) to access your backlift account.
 
@@ -14,11 +22,10 @@ Bugs or feature requests for backlift can be submitted to the [issues](http://gi
 
 The source to this documentation is available [on github](http://github.com/backlift/docs). We will happily accept pull requests to the docs.
 
-Thanks!
 
 ## Philosophy (lite)
 
-* Backlift doesn't want to change the way you work, it wants to eliminate work. 
+* Backlift doesn't want to change the way you work, it wants to reduce your workload. 
 * Backlift isn't a new library or API, it works with existing libraries, such as Backbone.js.
 * Backlift doesn't want to lock you in. The code you deploy to backlift can be used with a different stack. If at some point you outgrow backlift, you can migrate to a different back-end without rewriting your front-end code.
 
@@ -31,13 +38,13 @@ Open up your terminal and download the Backlift Command Line Interface (CLI) by 
 
     sudo easy_install backlift
 
-Alternatively, you can use pip to install the Backlift CLI into a virtual environment. If you don't know what that means, don't worry about it right now.
+Alternatively, you can use pip to install the Backlift CLI into a virtual environment.
 
-Once you have backlift installed, setup backlift using your account's API key:
+Once you have backlift installed, create an account at [backlift.com](https://backlift.com) by clicking on the 'Sign-in' button in the upper right corner. You will need a registration key. In order to obtain one please click the 'Get Early Access' link and supply your email address. We will send you a key as soon as possible.
+
+Once you have your api-key, setup backlift with the command:
 
     backlift setup <api-key>
-
-(You will find your api-key in your account dashboard.) 
 
 Now you're ready to create new apps and upload them to backlift.
 
