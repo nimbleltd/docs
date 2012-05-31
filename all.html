@@ -239,14 +239,15 @@ backlift push</code></pre>
 
 </p>
 <a name="defining-schemas"></a><h2>Defining schemas</h2>
-<p>Currently backlift validation rules must be created using the .backlift configuration file. Here is an example section of the .backlift file that sets up some validation rules:
+<p>Currently backlift validation rules must be created using the .backlift configuration file. Here is an example section of the .backlift file that sets up a validation rule:
 
 </p>
 <pre><code>collections:
   tweets:
     message: {type: &#39;string&#39;, max: 140, required: yes}
-    _public_permissions: {default: &#39;r&#39;, readonly: yes}</code></pre>
-<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backliftapp/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select a validation test. If the data passes the test for all attributes, the operation is permitted. 
+    (other rules...)
+  (other collections...)</code></pre>
+<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backliftapp/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
 
 </p>
 <p>For a discussion of the permissions attributes used during authorization, see the <a href="authorization.html">authorization</a> section.
@@ -295,7 +296,7 @@ A string with an optional minimum and maximum length. This is the default valida
 <p>This list is incomplete at this time. We will update this list as new validation rules are created.
 
 </p>
-<p>We realize that it is impossible to perform all server side data validation using a predetermined finite set of validation rules. Our goal is not to cover all possibilities. We are currently working to define a reasonable set that covers as much territory as possible. We are also evaluating alternatives on how to handle more custom validation needs.
+<p>We realize that it is impossible to perform all server side data validation using a predetermined finite set of validation rules. Our goal is not to cover all possibilities. We are currently working to define a reasonable set that covers as much territory as possible. We are also evaluating alternatives for how to handle more custom validation needs.
 
 
 </p>
