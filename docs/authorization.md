@@ -5,7 +5,7 @@
 
 ## Creating users and signing in
 
-Backlift exposes a restful API to facilitate user creation and management:
+Backlift exposes the following API to facilitate user creation and management:
 
 *   **Creating users:** (POST /backlift/auth/register)
 
