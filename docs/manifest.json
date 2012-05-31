@@ -1,5 +1,5 @@
 {
     "title": "Backlift Documentation",
-    "files": ["../README.md", "basics.md", "authorization.md"],
-    "css": "/style.css"
+    "files": ["../README.md", "basics.md", "validation.md", "authorization.md"],
+    "css": "style.css"
 }

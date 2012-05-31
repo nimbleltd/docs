@@ -67,3 +67,18 @@ Specifically:
 The data you send can either be a JSON object or a url-encoded set of key-value pairs.
 
 Backlift stores the data as JSON documents. That means you don't need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+
+
+## Special object attributes
+
+Each time the backlift server persists a new object, a few attributes are applied automatically:
+
+* **'id'**: If no id is set, the server will assign a unique uuid to each model and store it in the 'id' attribute. If there is an id, backlift will ensure that it is unique. 
+
+* **'_owner'**: This attribute is automatically assigned to the currently logged-in user's id attribute, if there is a currently logged-in user. This value is read-only.
+
+* **'_created'**: When a new object is created, this attribute is set with the current date and time in ISO standard format. This value is read-only.
+
+* **'_modified'**: Each time an object is updated, this attribute is set with the current date and time in ISO standard format. This value is read-only.
+
+* **'_id'**: Backlift mirrors the id attribute in an '_id' attribute. The '_id' attribute is the primary attribute used to store and retrieve data by the backlift database. In the future this attribute may be filtered out, so don't use it.
