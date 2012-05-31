@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
     <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
     
-        <link type="text/css" rel="stylesheet" href="/style.css">
+        <link type="text/css" rel="stylesheet" href="style.css">
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
@@ -201,6 +201,122 @@ backlift push</code></pre>
 
 </p>
 <p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+
+
+</p>
+<a name="special-object-attributes"></a><h2>Special object attributes</h2>
+<p>Each time the backlift server persists a new object, a few attributes are applied automatically:
+
+</p>
+<ul>
+<li><p><strong>&#39;id&#39;</strong>: If no id is set, the server will assign a unique uuid to each model and store it in the &#39;id&#39; attribute. If there is an id, backlift will ensure that it is unique. </p>
+</li>
+<li><p><strong>&#39;_owner&#39;</strong>: This attribute is automatically assigned to the currently logged-in user&#39;s id attribute, if there is a currently logged-in user. This value is read-only.</p>
+</li>
+<li><p><strong>&#39;_created&#39;</strong>: When a new object is created, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
+</li>
+<li><p><strong>&#39;_modified&#39;</strong>: Each time an object is updated, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
+</li>
+<li><p><strong>&#39;_id&#39;</strong>: Backlift mirrors the id attribute in an &#39;_id&#39; attribute. The &#39;_id&#39; attribute is the primary attribute used to store and retrieve data by the backlift database. In the future this attribute may be filtered out, so don&#39;t use it.</p>
+</li>
+</ul>
+
+<a name="validation"></a><h1>Validation</h1>
+<blockquote>
+<p>   alert: This section documents preliminary functionality. 
+   The functionality described below is still under development.
+
+</p>
+</blockquote>
+<a name="backlift-collections-and-schemas"></a><h2>Backlift collections and schemas</h2>
+<p>In backlift, the universal container is the collection. Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a table don&#39;t need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection&#39;s schema.
+
+</p>
+<p>By default there are no validation rules on any models in backlift. Anything can be stored in a collection, and new collections can be created on the fly. This is useful during development when the data model of an application is changing regularly. Later, when the application is ready for production, schema validation rules may be applied to &quot;lock down&quot; the kinds of data that backlift accepts.
+
+</p>
+<p>Backlift validation is currently an active area of development, so changes may occur frequently. Our apologies.
+
+</p>
+<a name="defining-schemas"></a><h2>Defining schemas</h2>
+<p>Currently backlift validation rules must be created using the .backlift configuration file. Here is an example section of the .backlift file that sets up some validation rules:
+
+</p>
+<pre><code>collections:
+  tweets:
+    message: {type: &#39;string&#39;, max: 140, required: yes}
+    _public_permissions: {default: &#39;r&#39;, readonly: yes}</code></pre>
+<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backliftapp/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select a validation test. If the data passes the test for all attributes, the operation is permitted. 
+
+</p>
+<p>For a discussion of the permissions attributes used during authorization, see the <a href="authorization.html">authorization</a> section.
+
+</p>
+<p>The syntax for defining a new rule is:
+
+</p>
+<pre><code>&lt;field name&gt;: {[type: &#39;&lt;rule type&gt;&#39;,] &lt;parameter name&gt;: &lt;value&gt; [...]}</code></pre>
+<p>If the rule &#39;type&#39; is omitted, it will be assumed to be a &#39;string&#39;.
+
+</p>
+<a name="validation-errors"></a><h2>Validation errors</h2>
+<p>If one or more validation tests fail, backlift will return a 403 response along with a JSON object containing error data. The error data structure will look like this:
+
+</p>
+<pre><code>{&quot;form_errors&quot;: {
+    &quot;message&quot;: [&quot;exceeds 140 character limit&quot;],
+    &quot;otherfield&quot;: [&quot;required&quot;],
+    &quot;&quot;: [&quot;other problems&quot;],
+}}</code></pre>
+<p>Each attribute of the &#39;form_errors&#39; hash is a field name, and the value is a list of error messages. The empty string attribute indicates form-wide errors.
+
+</p>
+<a name="validation-rule-reference"></a><h2>Validation rule reference</h2>
+<p>The following is a list of validation rule types, and their type specific parameters.
+
+</p>
+<ul>
+<li><p>&#39;<strong>auto:current_user</strong>&#39;:
+A string with the current user will be substituted for the value of this attribute. This rule implies that the attribute is read-only.</p>
+</li>
+<li><p>&#39;<strong>auto:uuid</strong>&#39;:
+A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$&#39;. A random uuid matching this pattern will be substituted for this attribute&#39;s value when the object is initially created.</p>
+</li>
+<li><p>&#39;<strong>auto:unique_uuid</strong>&#39;:
+A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$&#39;. A random uuid will be substituted for this attribute&#39;s value when the object is initially created. This value will be unique amongst values for this attribute on this collection.</p>
+</li>
+<li><p>&#39;<strong>auto:datetime</strong>&#39;:
+The current date and time in ISO standard format will be substituted for this attribute&#39;s value when the object is first created.</p>
+</li>
+<li><p>&#39;<strong>string</strong>&#39; (min, max):
+A string with an optional minimum and maximum length. This is the default validation type for all rules.</p>
+</li>
+</ul>
+<p>This list is incomplete at this time. We will update this list as new validation rules are created.
+
+</p>
+<p>We realize that it is impossible to perform all server side data validation using a predetermined finite set of validation rules. Our goal is not to cover all possibilities. We are currently working to define a reasonable set that covers as much territory as possible. We are also evaluating alternatives on how to handle more custom validation needs.
+
+
+</p>
+<a name="common-validation-rule-parameters"></a><h2>Common validation rule parameters</h2>
+<p>All validation rules accept the generic parameters &#39;default&#39;, &#39;requred&#39; and &#39;readonly&#39;. 
+
+</p>
+<ul>
+<li><p>The &#39;default&#39; parameter sets the value if no value is specified for an attribute.</p>
+</li>
+<li><p>The &#39;required&#39; parameter will ensure that a value is supplied for an attribute if set. (The value cannot be the empty string, nor can the attribute be absent entirely.)</p>
+</li>
+<li><p>The &#39;readonly&#39; parameter will cause the server to quietly reject any changes made to that attribute if set.</p>
+</li>
+</ul>
+<p>A common pattern is to set a value for the &#39;default&#39; parameter, and set &#39;readonly&#39; to &#39;yes&#39;. This has the same effect of setting a fixed value for an attribute. All new objects created with these parameters will have the default value set for this attribute, which cannot be changed. This technique is effective for setting permissions on objects. See the <a href="authorization.html">authorization</a> section for further discussion.
+
+</p>
+<a name="null-values-vs-the-empty-string"></a><h2>Null values vs. the empty string</h2>
+<p>There are no null values in backlift, only the empty string. (Similarly, there is no Dana, only Zuul.)
+
 </p>
 
 <a name="authorization"></a><h1>Authorization</h1>
@@ -244,7 +360,7 @@ backlift push</code></pre>
 </li>
 <li><p><strong>_groups</strong>: A list of groups to which the object belongs.</p>
 </li>
-<li><p><strong>_public_permissions</strong>, <strong>_group_permissions</strong>, <strong>_owner_permissions</strong>: Governs what actions are authorized on this object. It is a string containing any of the following characters. If one of the characters below is included in the string, it will grant the associated permission:</p>
+<li><p><strong>_public_permissions</strong>, <strong>_group_permissions</strong>, <strong>_owner_permissions</strong>: Govern what actions are authorized on this object. It is a string containing any of the following characters. If one of the characters below is included in the string, it will grant the associated permission:</p>
 <ul>
 <li><strong>&#39;r&#39;</strong>: read   </li>
 <li><strong>&#39;w&#39;</strong>: write   </li>
@@ -261,13 +377,33 @@ backlift push</code></pre>
   &quot;_owner_permissions&quot;: &quot;rwcd&quot;,
   &quot;_group_permissions&quot;: &quot;&quot;,
   &quot;_public_permissions&quot;: &quot;&quot;}</code></pre>
-<p>These are the default permissions that an object will be assigned, if any of the below attributes are missing on an object:
+<p>These are the default permissions that an object will be assigned, if the respective permissions attributes are missing on an object:
 
 </p>
 <ul>
 <li>owner: read, write, create, delete</li>
 <li>group: read, write</li>
 <li>public: read</li>
+</ul>
+<a name="using-validation-rules-to-set-permissions"></a><h2>Using validation rules to set permissions</h2>
+<p>Authorization depends on validation to ensure that the model attributes responsible for controlling user access are correctly configured and not altered by malicious clients. Currently these rules are set using the .backlift file. Here are a few examples of how to correctly set permissions on your models using the &#39;collections&#39; hash in the .backlift file:
+
+</p>
+<ul>
+<li><p>Making the models of a collection readonly for the public:</p>
+<pre><code>collections:
+  tweets:
+    message: {type: &#39;string&#39;, max: 140, required: yes}
+    _public_permissions: {default: &#39;r&#39;, readonly: yes}</code></pre>
+<p>In this example, tweets can be created and modified by users, due to default permissions. However the public can only read tweets, not change them. Tweets currently only contain the message, but could contain other attributes, such as the geo-location where the tweet was created.</p>
+</li>
+<li><p>Making a private user object:</p>
+<pre><code>collections:
+  users:
+    _id: {type: &#39;auto:current_user&#39;, readonly: yes}
+    _public_permissions: {default: &#39;&#39;, readonly: yes}</code></pre>
+<p>This object&#39;s id is always set to the current user&#39;s id. This ensures that only one model in the &#39;users&#39; collection will exist for each user since each model &#39;_id&#39; must be unique in a collection. This object also cannot be read by the public. However the owner and member&#39;s of this object&#39;s group, if set, will have access based on the default permissions listed above.</p>
+</li>
 </ul>
 
 </div>

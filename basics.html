@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
     <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
     
-        <link type="text/css" rel="stylesheet" href="/style.css">
+        <link type="text/css" rel="stylesheet" href="style.css">
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
@@ -70,6 +70,29 @@
                                 
                                     <li><a href="/docs/basics.html#data-persistence">Data persistence</a></li>
                                 
+                                    <li><a href="/docs/basics.html#special-object-attributes">Special object attributes</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/validation.html#validation">Validation</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/validation.html#backlift-collections-and-schemas">Backlift collections and schemas</a></li>
+                                
+                                    <li><a href="/docs/validation.html#defining-schemas">Defining schemas</a></li>
+                                
+                                    <li><a href="/docs/validation.html#validation-errors">Validation errors</a></li>
+                                
+                                    <li><a href="/docs/validation.html#validation-rule-reference">Validation rule reference</a></li>
+                                
+                                    <li><a href="/docs/validation.html#common-validation-rule-parameters">Common validation rule parameters</a></li>
+                                
+                                    <li><a href="/docs/validation.html#null-values-vs-the-empty-string">Null values vs. the empty string</a></li>
+                                
                             </ol>
                         
                     </li>
@@ -82,6 +105,8 @@
                                     <li><a href="/docs/authorization.html#creating-users-and-signing-in">Creating users and signing in</a></li>
                                 
                                     <li><a href="/docs/authorization.html#permissions-and-access-control">Permissions and access control</a></li>
+                                
+                                    <li><a href="/docs/authorization.html#using-validation-rules-to-set-permissions">Using validation rules to set permissions</a></li>
                                 
                             </ol>
                         
@@ -172,7 +197,25 @@
 
 </p>
 <p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+
+
 </p>
+<a name="special-object-attributes"></a><h2>Special object attributes</h2>
+<p>Each time the backlift server persists a new object, a few attributes are applied automatically:
+
+</p>
+<ul>
+<li><p><strong>&#39;id&#39;</strong>: If no id is set, the server will assign a unique uuid to each model and store it in the &#39;id&#39; attribute. If there is an id, backlift will ensure that it is unique. </p>
+</li>
+<li><p><strong>&#39;_owner&#39;</strong>: This attribute is automatically assigned to the currently logged-in user&#39;s id attribute, if there is a currently logged-in user. This value is read-only.</p>
+</li>
+<li><p><strong>&#39;_created&#39;</strong>: When a new object is created, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
+</li>
+<li><p><strong>&#39;_modified&#39;</strong>: Each time an object is updated, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
+</li>
+<li><p><strong>&#39;_id&#39;</strong>: Backlift mirrors the id attribute in an &#39;_id&#39; attribute. The &#39;_id&#39; attribute is the primary attribute used to store and retrieve data by the backlift database. In the future this attribute may be filtered out, so don&#39;t use it.</p>
+</li>
+</ul>
 
 </article>
 

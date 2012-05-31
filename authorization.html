@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
     <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
     
-        <link type="text/css" rel="stylesheet" href="/style.css">
+        <link type="text/css" rel="stylesheet" href="style.css">
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
@@ -70,6 +70,29 @@
                                 
                                     <li><a href="/docs/basics.html#data-persistence">Data persistence</a></li>
                                 
+                                    <li><a href="/docs/basics.html#special-object-attributes">Special object attributes</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/validation.html#validation">Validation</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/validation.html#backlift-collections-and-schemas">Backlift collections and schemas</a></li>
+                                
+                                    <li><a href="/docs/validation.html#defining-schemas">Defining schemas</a></li>
+                                
+                                    <li><a href="/docs/validation.html#validation-errors">Validation errors</a></li>
+                                
+                                    <li><a href="/docs/validation.html#validation-rule-reference">Validation rule reference</a></li>
+                                
+                                    <li><a href="/docs/validation.html#common-validation-rule-parameters">Common validation rule parameters</a></li>
+                                
+                                    <li><a href="/docs/validation.html#null-values-vs-the-empty-string">Null values vs. the empty string</a></li>
+                                
                             </ol>
                         
                     </li>
@@ -82,6 +105,8 @@
                                     <li><a href="/docs/authorization.html#creating-users-and-signing-in">Creating users and signing in</a></li>
                                 
                                     <li><a href="/docs/authorization.html#permissions-and-access-control">Permissions and access control</a></li>
+                                
+                                    <li><a href="/docs/authorization.html#using-validation-rules-to-set-permissions">Using validation rules to set permissions</a></li>
                                 
                             </ol>
                         
@@ -133,7 +158,7 @@
 </li>
 <li><p><strong>_groups</strong>: A list of groups to which the object belongs.</p>
 </li>
-<li><p><strong>_public_permissions</strong>, <strong>_group_permissions</strong>, <strong>_owner_permissions</strong>: Governs what actions are authorized on this object. It is a string containing any of the following characters. If one of the characters below is included in the string, it will grant the associated permission:</p>
+<li><p><strong>_public_permissions</strong>, <strong>_group_permissions</strong>, <strong>_owner_permissions</strong>: Govern what actions are authorized on this object. It is a string containing any of the following characters. If one of the characters below is included in the string, it will grant the associated permission:</p>
 <ul>
 <li><strong>&#39;r&#39;</strong>: read   </li>
 <li><strong>&#39;w&#39;</strong>: write   </li>
@@ -150,13 +175,33 @@
   &quot;_owner_permissions&quot;: &quot;rwcd&quot;,
   &quot;_group_permissions&quot;: &quot;&quot;,
   &quot;_public_permissions&quot;: &quot;&quot;}</code></pre>
-<p>These are the default permissions that an object will be assigned, if any of the below attributes are missing on an object:
+<p>These are the default permissions that an object will be assigned, if the respective permissions attributes are missing on an object:
 
 </p>
 <ul>
 <li>owner: read, write, create, delete</li>
 <li>group: read, write</li>
 <li>public: read</li>
+</ul>
+<a name="using-validation-rules-to-set-permissions"></a><h2>Using validation rules to set permissions</h2>
+<p>Authorization depends on validation to ensure that the model attributes responsible for controlling user access are correctly configured and not altered by malicious clients. Currently these rules are set using the .backlift file. Here are a few examples of how to correctly set permissions on your models using the &#39;collections&#39; hash in the .backlift file:
+
+</p>
+<ul>
+<li><p>Making the models of a collection readonly for the public:</p>
+<pre><code>collections:
+  tweets:
+    message: {type: &#39;string&#39;, max: 140, required: yes}
+    _public_permissions: {default: &#39;r&#39;, readonly: yes}</code></pre>
+<p>In this example, tweets can be created and modified by users, due to default permissions. However the public can only read tweets, not change them. Tweets currently only contain the message, but could contain other attributes, such as the geo-location where the tweet was created.</p>
+</li>
+<li><p>Making a private user object:</p>
+<pre><code>collections:
+  users:
+    _id: {type: &#39;auto:current_user&#39;, readonly: yes}
+    _public_permissions: {default: &#39;&#39;, readonly: yes}</code></pre>
+<p>This object&#39;s id is always set to the current user&#39;s id. This ensures that only one model in the &#39;users&#39; collection will exist for each user since each model &#39;_id&#39; must be unique in a collection. This object also cannot be read by the public. However the owner and member&#39;s of this object&#39;s group, if set, will have access based on the default permissions listed above.</p>
+</li>
 </ul>
 
 </article>
