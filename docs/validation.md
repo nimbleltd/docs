@@ -5,7 +5,7 @@
 
 ## Backlift collections and schemas
 
-In backlift, the universal container is the collection. Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a table don't need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection's schema.
+In backlift, the universal container is the collection. Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don't need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection's schema.
 
 By default there are no validation rules on any models in backlift. Anything can be stored in a collection, and new collections can be created on the fly. This is useful during development when the data model of an application is changing regularly. Later, when the application is ready for production, schema validation rules may be applied to "lock down" the kinds of data that backlift accepts.
 
