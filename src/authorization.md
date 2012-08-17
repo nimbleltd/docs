@@ -68,7 +68,7 @@ These are the default permissions that an object will be assigned, if the respec
 
 ## Using validation rules to set permissions
 
-Authorization depends on validation to ensure that the model attributes responsible for controlling user access are correctly configured and not altered by malicious clients. Currently these rules are set using the .backlift file. Here are a few examples of how to correctly set permissions on your models using the 'collections' hash in the .backlift file:
+Authorization depends on validation to ensure that the model attributes responsible for controlling user access are correctly configured and not altered by malicious clients. Currently these rules are set using the config.yml file. Here are a few examples of how to correctly set permissions on your models using the 'collections' hash in the config.yml file:
 
 *   Making the models of a collection readonly for the public:
 

@@ -26,7 +26,7 @@ There are a few additional project files:
 
 * **the setup.js file**: For some backlift template, a setup javascript file is used to create the App namespace and define commonly used convenience classes.
 
-* **the .backlift file**: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.
+* **the config.yml file**: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.
 
 After your files are uploaded using `backlift push` they will be publicly accessible at:
 
@@ -34,7 +34,7 @@ After your files are uploaded using `backlift push` they will be publicly access
 
 This avoids conflicts between your public files, and paths that you might set up using your backbone router.
 
-You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your .backlift file.
+You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
 
 
 ## The admin site
@@ -66,7 +66,7 @@ Specifically:
 
 The data you send can either be a JSON object or a url-encoded set of key-value pairs.
 
-Backlift stores the data as JSON documents. That means you don't need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+Backlift stores the data as JSON documents. That means you don't need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file or the admin panel. (coming soon!)
 
 
 ## Special object attributes

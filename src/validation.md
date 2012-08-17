@@ -13,7 +13,7 @@ Backlift validation is currently an active area of development, so changes may o
 
 ## Defining schemas
 
-Currently backlift validation rules must be created using the .backlift configuration file. Here is an example section of the .backlift file that sets up a validation rule:
+Currently backlift validation rules must be created using the config.yml configuration file. Here is an example section of the config.yml file that sets up a validation rule:
 
     collections:
       tweets:
@@ -47,8 +47,23 @@ Each attribute of the 'form_errors' hash is a field name, and the value is a lis
 
 The following is a list of validation rule types, and their type specific parameters.
 
-*   '**auto:current_user**':
-    A string with the current user will be substituted for the value of this attribute. This rule implies that the attribute is read-only.
+*   '**string**' (min, max):
+    A string with an optional minimum and maximum length. This is the default validation type for all rules.
+
+*   '**regex**' (regex):
+    A string that must match a regular expression. 
+
+*   '**identifier**':
+    A strictly alpha-numeric string at least 2 characters long and no more than 30 characters long. (It must match the regular expression '^[a-zA-Z0-9]{2,30}$') In addition identifiers are forced to lower-case when validated. Identifiers are used primarily for things like usernames and app IDs.
+
+*   '**password**': 
+    A string at least 8 characters long and no longer than 30 characters.
+
+*   '**email**':
+    Must be a valid email address.
+
+*   '**list**':
+    Must be a strig of the form '["item", "item", ...]'. Allows string representations of lists to be stored and retreived without requiring json deserialization.
 
 *   '**auto:uuid**':
     A string that matches the regex pattern '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'. A random uuid matching this pattern will be substituted for this attribute's value when the object is initially created.
@@ -59,9 +74,6 @@ The following is a list of validation rule types, and their type specific parame
 *   '**auto:datetime**':
     The current date and time in ISO standard format will be substituted for this attribute's value when the object is first created.
 
-*   '**string**' (min, max):
-    A string with an optional minimum and maximum length. This is the default validation type for all rules.
-
 This list is incomplete at this time. We will update this list as new validation rules are created.
 
 We realize that it is impossible to perform all server side data validation using a predetermined finite set of validation rules. Our goal is not to cover all possibilities. We are currently working to define a reasonable set that covers as much territory as possible. We are also evaluating alternatives for how to handle more custom validation needs.
@@ -69,7 +81,7 @@ We realize that it is impossible to perform all server side data validation usin
 
 ## Common validation rule parameters
 
-All validation rules accept the generic parameters 'default', 'requred' and 'readonly'. 
+All validation rules accept the generic parameters 'default', 'required' and 'readonly'. 
 
 * The 'default' parameter sets the value if no value is specified for an attribute.
 
@@ -78,8 +90,4 @@ All validation rules accept the generic parameters 'default', 'requred' and 'rea
 * The 'readonly' parameter will cause the server to quietly reject any changes made to that attribute if set.
 
 A common pattern is to set a value for the 'default' parameter, and set 'readonly' to 'yes'. This has the same effect of setting a fixed value for an attribute. All new objects created with these parameters will have the default value set for this attribute, which cannot be changed. This technique is effective for setting permissions on objects. See the [authorization](authorization.html) section for further discussion.
-
-## Null values vs. the empty string
-
-There are no null values in backlift, only the empty string. (Similarly, there is no Dana, only Zuul.)
 

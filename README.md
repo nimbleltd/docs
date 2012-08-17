@@ -77,5 +77,9 @@ You can alternatively view the website's admin page by typing:
 
     backlift admin
 
-That's all there is to it! The basic Backlift template contains a tutorial that will show you how to build a backbone.js app with Backlift. 
+That's all there is to getting started. The demo template contains a tutorial that will show you how to build a backbone.js app with Backlift. You can run it by typing:
+
+	backlift create:demo demoapp
+
+
 
