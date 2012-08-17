@@ -111,9 +111,10 @@ backlift push</code></pre>
 
 </p>
 <pre><code>backlift admin</code></pre>
-<p>That&#39;s all there is to it! The basic Backlift template contains a tutorial that will show you how to build a backbone.js app with Backlift. 
+<p>That&#39;s all there is to getting started. The demo template contains a tutorial that will show you how to build a backbone.js app with Backlift. You can run it by typing:
 
 </p>
+<pre><code>backlift create:demo demoapp</code></pre>
 
 <a name="backlift-basics"></a><h1>Backlift basics</h1>
 <a name="app-templates"></a><h2>App templates</h2>
@@ -147,7 +148,7 @@ backlift push</code></pre>
 </li>
 <li><p><strong>the setup.js file</strong>: For some backlift template, a setup javascript file is used to create the App namespace and define commonly used convenience classes.</p>
 </li>
-<li><p><strong>the .backlift file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
+<li><p><strong>the config.yml file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
 </li>
 </ul>
 <p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
@@ -157,7 +158,7 @@ backlift push</code></pre>
 <p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
 
 </p>
-<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your .backlift file.
+<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
 
 
 </p>
@@ -194,7 +195,7 @@ backlift push</code></pre>
 <p>The data you send can either be a JSON object or a url-encoded set of key-value pairs.
 
 </p>
-<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file or the admin panel. (coming soon!)
 
 
 </p>
@@ -233,7 +234,7 @@ backlift push</code></pre>
 
 </p>
 <a name="defining-schemas"></a><h2>Defining schemas</h2>
-<p>Currently backlift validation rules must be created using the .backlift configuration file. Here is an example section of the .backlift file that sets up a validation rule:
+<p>Currently backlift validation rules must be created using the config.yml configuration file. Here is an example section of the config.yml file that sets up a validation rule:
 
 </p>
 <pre><code>collections:
@@ -271,8 +272,23 @@ backlift push</code></pre>
 
 </p>
 <ul>
-<li><p>&#39;<strong>auto:current_user</strong>&#39;:
-A string with the current user will be substituted for the value of this attribute. This rule implies that the attribute is read-only.</p>
+<li><p>&#39;<strong>string</strong>&#39; (min, max):
+A string with an optional minimum and maximum length. This is the default validation type for all rules.</p>
+</li>
+<li><p>&#39;<strong>regex</strong>&#39; (regex):
+A string that must match a regular expression. </p>
+</li>
+<li><p>&#39;<strong>identifier</strong>&#39;:
+A strictly alpha-numeric string at least 2 characters long and no more than 30 characters long. (It must match the regular expression &#39;^[a-zA-Z0-9]{2,30}$&#39;) In addition identifiers are forced to lower-case when validated. Identifiers are used primarily for things like usernames and app IDs.</p>
+</li>
+<li><p>&#39;<strong>password</strong>&#39;: 
+A string at least 8 characters long and no longer than 30 characters.</p>
+</li>
+<li><p>&#39;<strong>email</strong>&#39;:
+Must be a valid email address.</p>
+</li>
+<li><p>&#39;<strong>list</strong>&#39;:
+Must be a strig of the form &#39;[&quot;item&quot;, &quot;item&quot;, ...]&#39;. Allows string representations of lists to be stored and retreived without requiring json deserialization.</p>
 </li>
 <li><p>&#39;<strong>auto:uuid</strong>&#39;:
 A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$&#39;. A random uuid matching this pattern will be substituted for this attribute&#39;s value when the object is initially created.</p>
@@ -283,9 +299,6 @@ A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4
 <li><p>&#39;<strong>auto:datetime</strong>&#39;:
 The current date and time in ISO standard format will be substituted for this attribute&#39;s value when the object is first created.</p>
 </li>
-<li><p>&#39;<strong>string</strong>&#39; (min, max):
-A string with an optional minimum and maximum length. This is the default validation type for all rules.</p>
-</li>
 </ul>
 <p>This list is incomplete at this time. We will update this list as new validation rules are created.
 
@@ -295,7 +308,7 @@ A string with an optional minimum and maximum length. This is the default valida
 
 </p>
 <a name="common-validation-rule-parameters"></a><h2>Common validation rule parameters</h2>
-<p>All validation rules accept the generic parameters &#39;default&#39;, &#39;requred&#39; and &#39;readonly&#39;. 
+<p>All validation rules accept the generic parameters &#39;default&#39;, &#39;required&#39; and &#39;readonly&#39;. 
 
 </p>
 <ul>
@@ -307,10 +320,6 @@ A string with an optional minimum and maximum length. This is the default valida
 </li>
 </ul>
 <p>A common pattern is to set a value for the &#39;default&#39; parameter, and set &#39;readonly&#39; to &#39;yes&#39;. This has the same effect of setting a fixed value for an attribute. All new objects created with these parameters will have the default value set for this attribute, which cannot be changed. This technique is effective for setting permissions on objects. See the <a href="authorization.html">authorization</a> section for further discussion.
-
-</p>
-<a name="null-values-vs-the-empty-string"></a><h2>Null values vs. the empty string</h2>
-<p>There are no null values in backlift, only the empty string. (Similarly, there is no Dana, only Zuul.)
 
 </p>
 
@@ -381,7 +390,7 @@ A string with an optional minimum and maximum length. This is the default valida
 <li>public: read</li>
 </ul>
 <a name="using-validation-rules-to-set-permissions"></a><h2>Using validation rules to set permissions</h2>
-<p>Authorization depends on validation to ensure that the model attributes responsible for controlling user access are correctly configured and not altered by malicious clients. Currently these rules are set using the .backlift file. Here are a few examples of how to correctly set permissions on your models using the &#39;collections&#39; hash in the .backlift file:
+<p>Authorization depends on validation to ensure that the model attributes responsible for controlling user access are correctly configured and not altered by malicious clients. Currently these rules are set using the config.yml file. Here are a few examples of how to correctly set permissions on your models using the &#39;collections&#39; hash in the config.yml file:
 
 </p>
 <ul>

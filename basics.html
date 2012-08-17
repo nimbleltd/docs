@@ -89,8 +89,6 @@
                                 
                                     <li><a href="/docs/validation.html#common-validation-rule-parameters">Common validation rule parameters</a></li>
                                 
-                                    <li><a href="/docs/validation.html#null-values-vs-the-empty-string">Null values vs. the empty string</a></li>
-                                
                             </ol>
                         
                     </li>
@@ -147,7 +145,7 @@
 </li>
 <li><p><strong>the setup.js file</strong>: For some backlift template, a setup javascript file is used to create the App namespace and define commonly used convenience classes.</p>
 </li>
-<li><p><strong>the .backlift file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
+<li><p><strong>the config.yml file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
 </li>
 </ul>
 <p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
@@ -157,7 +155,7 @@
 <p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
 
 </p>
-<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your .backlift file.
+<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
 
 
 </p>
@@ -194,7 +192,7 @@
 <p>The data you send can either be a JSON object or a url-encoded set of key-value pairs.
 
 </p>
-<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the .backlift config file or the admin panel. (coming soon!)
+<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file or the admin panel. (coming soon!)
 
 
 </p>
