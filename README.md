@@ -25,13 +25,6 @@ Our roadmap is posted [here](http://roadma.ps/28R).
 The source to this documentation is available [on github](http://github.com/backlift/docs). We will happily accept pull requests to the docs.
 
 
-## Philosophy (lite)
-
-* Backlift doesn't want to change the way you work, it wants to reduce your workload. 
-* Backlift isn't a new library or API, it works with existing libraries, such as Backbone.js.
-* Backlift doesn't want to lock you in. The code you deploy to backlift can be used with a different stack. If at some point you outgrow backlift, you can migrate to a different back-end without rewriting your front-end code.
-
-
 #  Getting Started
 
 ## Setup the Backlift Command Line Utility
