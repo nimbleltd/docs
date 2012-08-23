@@ -230,9 +230,6 @@ backlift push</code></pre>
 <p>By default there are no validation rules on any models in backlift. Anything can be stored in a collection, and new collections can be created on the fly. This is useful during development when the data model of an application is changing regularly. Later, when the application is ready for production, schema validation rules may be applied to &quot;lock down&quot; the kinds of data that backlift accepts.
 
 </p>
-<p>Backlift validation is currently an active area of development, so changes may occur frequently. Our apologies.
-
-</p>
 <a name="defining-schemas"></a><h2>Defining schemas</h2>
 <p>Currently backlift validation rules must be created using the config.yml configuration file. Here is an example section of the config.yml file that sets up a validation rule:
 
@@ -256,7 +253,7 @@ backlift push</code></pre>
 
 </p>
 <a name="validation-errors"></a><h2>Validation errors</h2>
-<p>If one or more validation tests fail, backlift will return a 403 response along with a JSON object containing error data. The error data structure will look like this:
+<p>If one or more validation tests fail, backlift will return a 400 response along with a JSON object containing error data. The error data structure will look like this:
 
 </p>
 <pre><code>{&quot;form_errors&quot;: {
@@ -295,6 +292,9 @@ A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4
 </li>
 <li><p>&#39;<strong>auto:unique_uuid</strong>&#39;:
 A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$&#39;. A random uuid will be substituted for this attribute&#39;s value when the object is initially created. This value will be unique amongst values for this attribute on this collection.</p>
+</li>
+<li><p>&#39;<strong>auto:unique_16_aA0</strong>&#39;:
+A string that matches the regex pattern &#39;^[a-zA-Z0-9]{16}$&#39;. A random string containing 16 alphanumeric characters, upper and lowercase, will be substituted for this attribute&#39;s value when the object is initially created. This value will be unique amongst values for this attribute on this collection.</p>
 </li>
 <li><p>&#39;<strong>auto:datetime</strong>&#39;:
 The current date and time in ISO standard format will be substituted for this attribute&#39;s value when the object is first created.</p>

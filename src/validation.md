@@ -9,8 +9,6 @@ In backlift, the universal container is the collection. Collections are like tab
 
 By default there are no validation rules on any models in backlift. Anything can be stored in a collection, and new collections can be created on the fly. This is useful during development when the data model of an application is changing regularly. Later, when the application is ready for production, schema validation rules may be applied to "lock down" the kinds of data that backlift accepts.
 
-Backlift validation is currently an active area of development, so changes may occur frequently. Our apologies.
-
 ## Defining schemas
 
 Currently backlift validation rules must be created using the config.yml configuration file. Here is an example section of the config.yml file that sets up a validation rule:
@@ -33,7 +31,7 @@ If the rule 'type' is omitted, it will be assumed to be a 'string'.
 
 ## Validation errors
 
-If one or more validation tests fail, backlift will return a 403 response along with a JSON object containing error data. The error data structure will look like this:
+If one or more validation tests fail, backlift will return a 400 response along with a JSON object containing error data. The error data structure will look like this:
 
     {"form_errors": {
     	"message": ["exceeds 140 character limit"],
@@ -70,6 +68,9 @@ The following is a list of validation rule types, and their type specific parame
 
 *   '**auto:unique_uuid**':
     A string that matches the regex pattern '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'. A random uuid will be substituted for this attribute's value when the object is initially created. This value will be unique amongst values for this attribute on this collection.
+
+*   '**auto:unique_16_aA0**':
+    A string that matches the regex pattern '^[a-zA-Z0-9]{16}$'. A random string containing 16 alphanumeric characters, upper and lowercase, will be substituted for this attribute's value when the object is initially created. This value will be unique amongst values for this attribute on this collection.
 
 *   '**auto:datetime**':
     The current date and time in ISO standard format will be substituted for this attribute's value when the object is first created.
