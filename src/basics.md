@@ -64,7 +64,7 @@ Specifically:
 
 * DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete an item.
 
-The data you send can either be a JSON object or a url-encoded set of key-value pairs.
+The data should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
 
 Backlift stores the data as JSON documents. That means you don't need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file or the admin panel. (coming soon!)
 

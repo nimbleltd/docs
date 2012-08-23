@@ -3,19 +3,58 @@
 >    alert: This section documents preliminary functionality. 
 >    The functionality described below is still under development.
 
+The authorization plugin provides an API for registering and establishing sessions for users, storing private and public user data, and setting permissions on data objects.
+
+All passwords are salted and hashed before being stored using [bcrypt](http://bcrypt.sourceforge.net/). Currently all requests to backlift apps are encrypted with ssl using backlift's certificates. (All backlift app urls use the https:// protocol) User session cookies are encrypted and managed by the backlift app server via this API. 
+
+## User data
+
+Users are stored in a special collection within each app that can only be accessed through the auth API. A user model has the following schema (see [validation section](validation.html#validation-rule-reference) for type reference).
+
+The user model:
+
+    'id':           {'type': 'auto:unique_16_aA0', 'readonly': True}
+    'username':     {'type': 'identifier', 'unique': True}
+    'email':        {'type': 'email', 'unique': True}
+    'groups':       {'type': 'list'}
+    'profile':      <a profile model>
+
+The user collection cannot be fetched. Only the single user model for the currently signed in user is accessible. Custom properties may be added to the user model which will remain private to the current user. For this reason, the user model is a good place to keep track of user preferences.
+
+The user model contains a reference to a profile model. The profiles collection is separate and can be accessed like any other collection. (See the data persistence section in [basics](basics.html#data-persistence)) By default the name of the profile collection is 'profiles'. It's default permissions for each profile object match the system wide default permissions. (see permissions [below](#permissions-and-access-control)) Therefore profile models are publicly readonly by default, and fetching the profiles collection will yeild a list of user profiles. Custom properties may be added to a profile object, and they will be publicly accessible by default. For this reason, the profile object is a good place to store per-user public data.
+
+The profile model:
+
+    'id':           {'type': 'auto:unique_16_aA0', 'readonly': True}
+    'username':     {'type': 'identifier', 'readonly': True}
+
+Both the user and profile models include the special object properties specified [here](basics.html#special-object-attributes).
+
+To get or set data for the current user, use the current user API:
+
+    GET         /backlift/auth/currentuser 
+    POST or PUT /backlift/auth/currentuser { <user model> }
+
+If you are setting the user model, the data should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. Not all the data fields must be set, only the included fields will be altered. Note that if you are setting the profile field, you must use JSON, not url-encoded data.
+
 ## Creating users and signing in
 
-Backlift exposes the following API to facilitate user creation and management:
+Backlift exposes the following API to facilitate user creation and management. The data should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
 
 *   **Creating users:** (POST /backlift/auth/register)
 
-    You can create new users by sending a POST request to your app's /backlift/auth/register URL. The data you send should contain a 'username' attribute and a 'password' attribute, or 'password1' and 'password2' attributes. 
+    You can create new users by sending a POST request to your app's /backlift/auth/register URL. The data you send should contain a 'username' attribute, an 'email' attribute, and a 'password' attribute or 'password1' and 'password2' attributes. 
         
-        POST /backlift/auth/register {"username": "...", "password": "..."}
+        POST /backlift/auth/register {"username": "...", "email": "...", "password": "..."}
 
-    Currently backlift does not perform validation on usernames or passwords, except that they must exist, and in the case of password1 and password2, they must match.
+    There are several alternative API endpoints that permit creating users with just an email address, or requiring an email and username:
 
-    Passwords are salted and hashed before being stored using [bcrypt](http://bcrypt.sourceforge.net/).
+        POST /backlift/auth/registernoemail {"username": "...", "password": "..."}
+        POST /backlift/auth/registeremailonly {"email": "...", "password": "..."}
+
+    The response will contain a json object with the new user's data. 
+
+    For more detail check the API Reference.
 
 *   **Logging in:** (POST /backlift/auth/login)
 
@@ -77,15 +116,14 @@ Authorization depends on validation to ensure that the model attributes responsi
             message: {type: 'string', max: 140, required: yes}
             _public_permissions: {default: 'r', readonly: yes}
 
-    In this example, tweets can be created and modified by users, due to default permissions. However the public can only read tweets, not change them. Tweets currently only contain the message, but could contain other attributes, such as the geo-location where the tweet was created.
+    In this example, tweets can be created and modified by users, due to default owner permissions. In this case we've explicitly specified that the public can only read tweets, not change them. Tweets currently only contain the message field, but could contain other attributes, such as the geo-location where the tweet was created.
 
-*   Making a private user object:
+*   Making a private user profile:
 
         collections:
-          users:
-            _id: {type: 'auto:current_user', readonly: yes}
+          profiles:
             _public_permissions: {default: '', readonly: yes}
 
-    This object's id is always set to the current user's id. This ensures that only one model in the 'users' collection will exist for each user since each model '_id' must be unique in a collection. This object also cannot be read by the public. However the owner and member's of this object's group, if set, will have access based on the default permissions listed above.
+    This object cannot be read by the public. However the owner and members of this object's group will have access based on the default permissions.
 
 
