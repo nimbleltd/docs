@@ -128,24 +128,24 @@
 
 </p>
 <a name="project-layout"></a><h2>Project layout</h2>
-<p>At a minimum your backlift app has three files, a main javascript file, a javascript template (JST) file and a CSS file:
+<p>At the root of your project folder is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app has three files, a main javascript file, a javascript template (JST) file and a CSS file:
 
 </p>
 <ul>
-<li><p><strong>app/scripts/main.js</strong>: At a minimum this file contains a router that maps URLs to Views. It can also contain data Models and Collections, and Views that display the data. However it&#39;s generally best to separate out those classes and place them into other .js files.</p>
+<li><p><strong>/public/app/scripts/main.js</strong>: At a minimum this file contains a router that maps URLs to Views. It can also contain data Models and Collections, and Views that display the data. However it&#39;s generally best to separate out those classes and place them into other .js files.</p>
 </li>
-<li><p><strong>app/templates/*.jst</strong>: JST stands for JavaScript Template. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Larger sites may have several templates, one for each chunk of data that will be displayed. Also JST files can be rendered heirarchically, allowing one JST to act as a layout for the rest of the website. JSTs will be available to your code via the <code>window.JST</code> object. For example, a template called &#39;home.jst&#39; will be available to your app as <code>window.JST.home</code> or just <code>JST.home</code>. </p>
+<li><p><strong>/public/app/templates/*.jst</strong>: JST stands for JavaScript Template. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Larger sites may have several templates, one for each chunk of data that will be displayed. Also JST files can be rendered heirarchically, allowing one JST to act as a layout for the rest of the website. JSTs will be available to your code via the <code>window.JST</code> object. For example, a template called &#39;home.jst&#39; will be available to your app as <code>window.JST.home</code> or just <code>JST.home</code>. </p>
 </li>
-<li><p><strong>app/styles/styles.css</strong>: controls how your website looks</p>
+<li><p><strong>/public/app/styles/styles.css</strong>: controls how your website looks</p>
 </li>
 </ul>
 <p>There are a few additional project files:
 
 </p>
 <ul>
-<li><p><strong>the /libraries folder</strong>: This is where third party libraries, such as bootstrap.css and backbone.js go.</p>
+<li><p><strong>the /public/libraries folder</strong>: This is where third party libraries, such as bootstrap.css and backbone.js go.</p>
 </li>
-<li><p><strong>the setup.js file</strong>: For some backlift template, a setup javascript file is used to create the App namespace and define commonly used convenience classes.</p>
+<li><p><strong>the /public/setup.js file</strong>: For some backlift template, a setup javascript file is used to create the App namespace.</p>
 </li>
 <li><p><strong>the config.yml file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
 </li>
@@ -153,7 +153,7 @@
 <p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
 
 </p>
-<pre><code>&lt;your app id&gt;.backliftapp.com/public/&lt;file path&gt; </code></pre>
+<pre><code>https://&lt;your app id&gt;.backliftapp.com/public/&lt;file path&gt; </code></pre>
 <p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
 
 </p>
