@@ -174,7 +174,6 @@ POST or PUT /backlift/auth/currentuser { &lt;user model&gt; }</code></pre>
 <pre><code>POST /backlift/auth/registernoemail {&quot;username&quot;: &quot;...&quot;, &quot;password&quot;: &quot;...&quot;}
 POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot;password&quot;: &quot;...&quot;}</code></pre>
 <p>The response will contain a json object with the new user&#39;s data. </p>
-<p>For more detail check the API Reference.</p>
 </li>
 <li><p><strong>Logging in:</strong> (POST /backlift/auth/login)</p>
 <p>To log in a user, POST to the login url with a pair of &#39;username&#39; and &#39;password&#39; attributes. They will be compared against the salted and hashed password store and if they match, the user will be logged in.</p>

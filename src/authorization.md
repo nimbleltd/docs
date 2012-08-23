@@ -54,8 +54,6 @@ Backlift exposes the following API to facilitate user creation and management. T
 
     The response will contain a json object with the new user's data. 
 
-    For more detail check the API Reference.
-
 *   **Logging in:** (POST /backlift/auth/login)
 
 	To log in a user, POST to the login url with a pair of 'username' and 'password' attributes. They will be compared against the salted and hashed password store and if they match, the user will be logged in.
