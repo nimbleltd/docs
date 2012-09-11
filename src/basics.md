@@ -14,7 +14,7 @@ We'd love to add your example or starter template to the backlift command line u
 
 At the root of your app is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app should have a main javascript file, one ore more handlebars or underscore templates and a CSS file. Typically these files will be placed in the following folders:
 
-* **/public/app/scripts/ **: At a minimum this folder should contain a main.js file that defines a Backbone router. This file can also contain .js files for your data Models and Collections, and Views that display the data.
+* **/public/app/scripts/ **: At a minimum this folder should contain a main.js file that defines a Backbone router. This folder can also contain .js files for your Models, Collections, and Views.
 
 * **/public/app/templates/ **: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and "rendered" into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. For more information about the template compilers please see the section on [compilers](#compilers-and-optimization). 
 
@@ -24,7 +24,7 @@ There are a few additional project files:
 
 * **the /public/libraries folder**: This is where third party libraries, such as bootstrap.css and backbone.js go.
 
-* **the /public/setup.js file**: For some backlift template, a setup javascript file is used to create the App namespace.
+* **the /public/setup.js file**: For some backlift templates, a setup javascript file is used to create the App namespace.
 
 * **the config.yml file**: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.
 

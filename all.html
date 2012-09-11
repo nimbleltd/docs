@@ -133,7 +133,7 @@ backlift push</code></pre>
 
 </p>
 <ul>
-<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main.js file that defines a Backbone router. This file can also contain .js files for your data Models and Collections, and Views that display the data.</p>
+<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main.js file that defines a Backbone router. This folder can also contain .js files for your Models, Collections, and Views.</p>
 </li>
 <li><p><strong>/public/app/templates/ </strong>: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. For more information about the template compilers please see the section on <a href="#compilers-and-optimization">compilers</a>. </p>
 </li>
@@ -146,7 +146,7 @@ backlift push</code></pre>
 <ul>
 <li><p><strong>the /public/libraries folder</strong>: This is where third party libraries, such as bootstrap.css and backbone.js go.</p>
 </li>
-<li><p><strong>the /public/setup.js file</strong>: For some backlift template, a setup javascript file is used to create the App namespace.</p>
+<li><p><strong>the /public/setup.js file</strong>: For some backlift templates, a setup javascript file is used to create the App namespace.</p>
 </li>
 <li><p><strong>the config.yml file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
 </li>
