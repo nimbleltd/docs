@@ -130,15 +130,15 @@
 
 </p>
 <a name="project-layout"></a><h2>Project layout</h2>
-<p>At the root of your app is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app should have a main javascript file, one ore more handlebars or underscore templates and a CSS file. Typically these files will be placed in the following folders:
+<p>At the root of your app is a public folder. This contains all the publicly accessible files that make up your webapp. The public folder may include javascript or coffeescript files, templates, and css or less stylesheets. All public files will be compiled into css and javscript files when you run <code>backlift push</code>. For more information about this build process, please see the section on <a href="#compilers-and-optimization">compilers and optimization</a>. You can setup any folder structure for your public files, but we suggest the following system that is used in most backlift templates:
 
 </p>
 <ul>
-<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main.js file that defines a Backbone router. This folder can also contain .js files for your Models, Collections, and Views.</p>
+<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main javascript or coffeescript file that defines a Backbone router. This folder can also contain .js or .coffee files for your Models, Collections, and Views.</p>
 </li>
-<li><p><strong>/public/app/templates/ </strong>: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. For more information about the template compilers please see the section on <a href="#compilers-and-optimization">compilers</a>. </p>
+<li><p><strong>/public/app/templates/ </strong>: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. </p>
 </li>
-<li><p><strong>/public/app/styles/ </strong>: Should contain .css files that define the look and layout of your webapp.</p>
+<li><p><strong>/public/app/styles/ </strong>: This folder should contain .css or .less files that define the look and layout of your webapp.</p>
 </li>
 </ul>
 <p>There are a few additional project files:
@@ -170,10 +170,10 @@
 
 </p>
 <ul>
-<li>.coffeescript --&gt; .js (coffeescript compiler)</li>
-<li>.jst --&gt; .js (underscore template compiler)</li>
-<li>.handlebars --&gt; .js (handlebars template compiler)</li>
-<li>.less --&gt; .css (less compiler)</li>
+<li>.coffee --&gt; .js (<a href="http://coffeescript.org/">coffeescript</a> compiler)</li>
+<li>.jst --&gt; .js (<a href="http://underscorejs.org/#template">underscore template</a> compiler)</li>
+<li>.handlebars --&gt; .js (<a href="http://handlebarsjs.com/">handlebars</a> template compiler)</li>
+<li>.less --&gt; .css (<a href="http://lesscss.org/">less</a> compiler)</li>
 </ul>
 <p>Backlift uses the YUI compressor to minify the concatenated javascript and css files.
 
