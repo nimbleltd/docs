@@ -12,7 +12,7 @@ We'd love to add your example or starter template to the backlift command line u
 
 ## Project layout
 
-At the root of your project folder is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app should have a main javascript file, one ore more handlebars or underscore templates and a CSS file. Typically these files will be placed in the following folders:
+At the root of your app is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app should have a main javascript file, one ore more handlebars or underscore templates and a CSS file. Typically these files will be placed in the following folders:
 
 * **/public/app/scripts/ **: At a minimum this folder should contain a main.js file that defines a Backbone router. This file can also contain .js files for your data Models and Collections, and Views that display the data.
 
