@@ -4,7 +4,7 @@
 
 Backlift comes with a set of examples and starter templates that you can access directly with the backlift create command. Just type:
 
-    backlift create:<template name> newapp 
+    backlift create:<template_name> newapp 
 
 You can find a list of available templates on github at http://github.com/backlift/backlift-templates.
 
@@ -12,13 +12,13 @@ We'd love to add your example or starter template to the backlift command line u
 
 ## Project layout
 
-At the root of your project folder is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app has three files, a main javascript file, a javascript template (JST) file and a CSS file:
+At the root of your project folder is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app should have a main javascript file, one ore more handlebars or underscore templates and a CSS file. Typically these files will be placed in the following folders:
 
-* **/public/app/scripts/main.js**: At a minimum this file contains a router that maps URLs to Views. It can also contain data Models and Collections, and Views that display the data. However it's generally best to separate out those classes and place them into other .js files.
+* **/public/app/scripts/ **: At a minimum this folder should contain a main.js file that defines a Backbone router. This file can also contain .js files for your data Models and Collections, and Views that display the data.
 
-* **/public/app/templates/*.jst**: JST stands for JavaScript Template. Templates are combined with data from your model and "rendered" into HTML. Larger sites may have several templates, one for each chunk of data that will be displayed. Also JST files can be rendered heirarchically, allowing one JST to act as a layout for the rest of the website. JSTs will be available to your code via the `window.JST` object. For example, a template called 'home.jst' will be available to your app as `window.JST.home` or just `JST.home`. 
+* **/public/app/templates/ **: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and "rendered" into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. For more information about the template compilers please see the section on [compilers](#compilers-and-optimization). 
 
-* **/public/app/styles/styles.css**: controls how your website looks
+* **/public/app/styles/ **: Should contain .css files that define the look and layout of your webapp.
 
 There are a few additional project files:
 
@@ -30,12 +30,45 @@ There are a few additional project files:
 
 After your files are uploaded using `backlift push` they will be publicly accessible at:
 
-    https://<your app id>.backliftapp.com/public/<file path> 
+    https://<your_app_id>.backliftapp.com/public/<file_path> 
 
 This avoids conflicts between your public files, and paths that you might set up using your backbone router.
 
 You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
 
+## Compilers and optimization
+
+When you run `backlift push` your code is uploaded to the backlift server and optionally compiled and optimized. During the compilation phase, files with known extensions are compiled into javascript or css. During the optimization phase, javascript and css files are concatenated and minified. 
+
+The following is a list of the known file extensions, the type of file generated, and the associated compiler:
+
+* .coffeescript --&gt; .js (coffeescript compiler)
+* .jst --&gt; .js (underscore template compiler)
+* .handlebars --&gt; .js (handlebars template compiler)
+* .less --&gt; .css (less compiler)
+
+Backlift uses the YUI compressor to minify the concatenated javascript and css files.
+
+You can control which files are passed to the compilers by adding a `compile` directive to your project's config.yml file. The compile directive should include a list of files that will be compiled. The default, if no compile directive is specified, includes the following:
+
+<pre><code class="no-highlight">compile:
+- public/**/*.jst
+- public/**/*.handlebars
+- public/**/bootstrap*.less
+- public/**/*.coffee
+</code></pre>
+
+(Note that only the main bootstrap.less file will typically be compiled. This is because the bootstrap.less file imports several .less components. Attempting to pass those component .less files directly to the less compiler will result in an error.)
+
+Typically it will not be necessary to adjust the compile configuration. If no files of a particular kind exist, the compiler for that file type will not be invoked.
+
+Optimization can be enabled or disabled using the `optimize` setting within config.yml.
+
+	optimize: on
+
+By default optimization is disabled. This reduces the time required to build your webapp, and avoides the obscure code generated by minification. Optimization should not be used during development.
+
+If you do not include an index.html file in your project, one will be generated automatically that includes the results of the compile and optimization process. If you manually specify an index.html file, be sure to link the files generated by the compiler and optimizer. Compiled files will be named the same as their source file except for the extension. The optimizer will generate two files, `\public\optimized-scripts.js` and `\public\optmized-styles.css`.
 
 ## The admin site
 
@@ -45,7 +78,7 @@ Each app gets a unique admin page that can be used for debugging and, in the fut
 
 from your app's working folder, or visit
 
-    https://www.backlift.com/admin#<app id>
+    https://www.backlift.com/admin#<app_id>
 
 As you develop your app, this page will change to reflect your app's collections and request history. This makes it a valuable debugging tool.
 

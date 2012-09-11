@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" href="/docs/css/reset.css">
     <link type="text/css" rel="stylesheet" href="/docs/css/docs.css">
     <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
-    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/default.min.css">
     
         <link type="text/css" rel="stylesheet" href="style.css">
     
@@ -63,6 +63,8 @@
                                     <li><a href="/docs/basics.html#app-templates">App templates</a></li>
                                 
                                     <li><a href="/docs/basics.html#project-layout">Project layout</a></li>
+                                
+                                    <li><a href="/docs/basics.html#compilers-and-optimization">Compilers and optimization</a></li>
                                 
                                     <li><a href="/docs/basics.html#the-admin-site">The admin site</a></li>
                                 
@@ -120,7 +122,7 @@
 <p>Backlift comes with a set of examples and starter templates that you can access directly with the backlift create command. Just type:
 
 </p>
-<pre><code>backlift create:&lt;template name&gt; newapp </code></pre>
+<pre><code>backlift create:&lt;template_name&gt; newapp </code></pre>
 <p>You can find a list of available templates on github at <a href="http://github.com/backlift/backlift-templates">http://github.com/backlift/backlift-templates</a>.
 
 </p>
@@ -128,15 +130,15 @@
 
 </p>
 <a name="project-layout"></a><h2>Project layout</h2>
-<p>At the root of your project folder is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app has three files, a main javascript file, a javascript template (JST) file and a CSS file:
+<p>At the root of your project folder is a public folder. This contains all the publicly accessible files that make up your webapp. At a minimum your backlift app should have a main javascript file, one ore more handlebars or underscore templates and a CSS file. Typically these files will be placed in the following folders:
 
 </p>
 <ul>
-<li><p><strong>/public/app/scripts/main.js</strong>: At a minimum this file contains a router that maps URLs to Views. It can also contain data Models and Collections, and Views that display the data. However it&#39;s generally best to separate out those classes and place them into other .js files.</p>
+<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main.js file that defines a Backbone router. This file can also contain .js files for your data Models and Collections, and Views that display the data.</p>
 </li>
-<li><p><strong>/public/app/templates/*.jst</strong>: JST stands for JavaScript Template. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Larger sites may have several templates, one for each chunk of data that will be displayed. Also JST files can be rendered heirarchically, allowing one JST to act as a layout for the rest of the website. JSTs will be available to your code via the <code>window.JST</code> object. For example, a template called &#39;home.jst&#39; will be available to your app as <code>window.JST.home</code> or just <code>JST.home</code>. </p>
+<li><p><strong>/public/app/templates/ </strong>: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. For more information about the template compilers please see the section on <a href="#compilers-and-optimization">compilers</a>. </p>
 </li>
-<li><p><strong>/public/app/styles/styles.css</strong>: controls how your website looks</p>
+<li><p><strong>/public/app/styles/ </strong>: Should contain .css files that define the look and layout of your webapp.</p>
 </li>
 </ul>
 <p>There are a few additional project files:
@@ -153,12 +155,53 @@
 <p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
 
 </p>
-<pre><code>https://&lt;your app id&gt;.backliftapp.com/public/&lt;file path&gt; </code></pre>
+<pre><code>https://&lt;your_app_id&gt;.backliftapp.com/public/&lt;file_path&gt; </code></pre>
 <p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
 
 </p>
 <p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
 
+</p>
+<a name="compilers-and-optimization"></a><h2>Compilers and optimization</h2>
+<p>When you run <code>backlift push</code> your code is uploaded to the backlift server and optionally compiled and optimized. During the compilation phase, files with known extensions are compiled into javascript or css. During the optimization phase, javascript and css files are concatenated and minified. 
+
+</p>
+<p>The following is a list of the known file extensions, the type of file generated, and the associated compiler:
+
+</p>
+<ul>
+<li>.coffeescript --&gt; .js (coffeescript compiler)</li>
+<li>.jst --&gt; .js (underscore template compiler)</li>
+<li>.handlebars --&gt; .js (handlebars template compiler)</li>
+<li>.less --&gt; .css (less compiler)</li>
+</ul>
+<p>Backlift uses the YUI compressor to minify the concatenated javascript and css files.
+
+</p>
+<p>You can control which files are passed to the compilers by adding a <code>compile</code> directive to your project&#39;s config.yml file. The compile directive should include a list of files that will be compiled. The default, if no compile directive is specified, includes the following:
+
+</p>
+<pre><code class="no-highlight">compile:
+- public/**/*.jst
+- public/**/*.handlebars
+- public/**/bootstrap*.less
+- public/**/*.coffee
+</code></pre>
+
+<p>(Note that only the main bootstrap.less file will typically be compiled. This is because the bootstrap.less file imports several .less components. Attempting to pass those component .less files directly to the less compiler will result in an error.)
+
+</p>
+<p>Typically it will not be necessary to adjust the compile configuration. If no files of a particular kind exist, the compiler for that file type will not be invoked.
+
+</p>
+<p>Optimization can be enabled or disabled using the <code>optimize</code> setting within config.yml.
+
+</p>
+<pre><code>optimize: on</code></pre>
+<p>By default optimization is disabled. This reduces the time required to build your webapp, and avoides the obscure code generated by minification. Optimization should not be used during development.
+
+</p>
+<p>If you do not include an index.html file in your project, one will be generated automatically that includes the results of the compile and optimization process. If you manually specify an index.html file, be sure to link the files generated by the compiler and optimizer. Compiled files will be named the same as their source file except for the extension. The optimizer will generate two files, <code>\public\optimized-scripts.js</code> and <code>\public\optmized-styles.css</code>.
 
 </p>
 <a name="the-admin-site"></a><h2>The admin site</h2>
@@ -169,7 +212,7 @@
 <p>from your app&#39;s working folder, or visit
 
 </p>
-<pre><code>https://www.backlift.com/admin#&lt;app id&gt;</code></pre>
+<pre><code>https://www.backlift.com/admin#&lt;app_id&gt;</code></pre>
 <p>As you develop your app, this page will change to reflect your app&#39;s collections and request history. This makes it a valuable debugging tool.
 
 
