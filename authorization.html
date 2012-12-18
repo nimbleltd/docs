@@ -36,20 +36,7 @@
                                 
                                     <li><a href="/docs/readme.html#introduction">Introduction</a></li>
                                 
-                            </ol>
-                        
-                    </li>
-                
-                    <li>
-                        <a href="/docs/readme.html#getting-started">Getting Started</a>
-                        
-                            <ol>
-                                
-                                    <li><a href="/docs/readme.html#setup-the-backlift-command-line-utility">Setup the Backlift Command Line Utility</a></li>
-                                
-                                    <li><a href="/docs/readme.html#create-and-upload-a-new-app">Create and Upload a new app</a></li>
-                                
-                                    <li><a href="/docs/readme.html#view-and-manage-your-app">View and manage your app</a></li>
+                                    <li><a href="/docs/readme.html#getting-started-with-dropbox">Getting started with Dropbox</a></li>
                                 
                             </ol>
                         
@@ -60,17 +47,30 @@
                         
                             <ol>
                                 
-                                    <li><a href="/docs/basics.html#app-templates">App templates</a></li>
+                                    <li><a href="/docs/basics.html#creating-an-app">Creating an app</a></li>
                                 
-                                    <li><a href="/docs/basics.html#project-layout">Project layout</a></li>
+                                    <li><a href="/docs/basics.html#backlift-variables-and-the-configyml-file">Backlift variables and the config.yml file</a></li>
                                 
                                     <li><a href="/docs/basics.html#compilers-and-optimization">Compilers and optimization</a></li>
                                 
                                     <li><a href="/docs/basics.html#the-admin-site">The admin site</a></li>
                                 
-                                    <li><a href="/docs/basics.html#data-persistence">Data persistence</a></li>
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/persistence.html#data-persistence">Data persistence</a>
+                        
+                            <ol>
                                 
-                                    <li><a href="/docs/basics.html#special-object-attributes">Special object attributes</a></li>
+                                    <li><a href="/docs/persistence.html#collections-and-models">Collections and models</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#the-persistence-api">The persistence API</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#persistence-with-backbonejs">Persistence with Backbone.js</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#special-object-attributes">Special object attributes</a></li>
                                 
                             </ol>
                         
@@ -107,6 +107,28 @@
                                     <li><a href="/docs/authorization.html#permissions-and-access-control">Permissions and access control</a></li>
                                 
                                     <li><a href="/docs/authorization.html#using-validation-rules-to-set-permissions">Using validation rules to set permissions</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/api.html#backlift-api">Backlift API</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/api.html#persistence">Persistence</a></li>
+                                
+                                    <li><a href="/docs/api.html#authorization-and-users">Authorization and Users</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/commandline.html#the-backlift-command-line-utility">The Backlift Command Line Utility</a>
+                        
+                            <ol>
                                 
                             </ol>
                         
@@ -189,6 +211,11 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </li>
 </ul>
 <a name="permissions-and-access-control"></a><h2>Permissions and access control</h2>
+<blockquote>
+<p><strong>Changes pending</strong>: It is likely that _groups and _group_permissions will be deprecated. In practice groups are infrequently used and they complicate the access control system. 12/17/12
+
+</p>
+</blockquote>
 <p>Backlift&#39;s authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
 
 </p>

@@ -1,0 +1,21 @@
+## An example Backbone.js project layout
+
+Here is an example of how you might lay out project files for a new app using [Backbone.js](http://backbonejs.org/):
+
+* **/public/app/scripts/ **: Contains a main javascript or coffeescript file that defines a Backbone router. This folder can also contain .js or .coffee files for your Models, Collections, and Views.
+
+* **/public/app/templates/ **: Contains templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and "rendered" into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. 
+
+* **/public/app/styles/ **: Contains .css or .less files that define the look and layout of your webapp.
+
+* **the /public/libraries folder**: This is where third party libraries, such as bootstrap.css and backbone.js go.
+
+* **the /public/setup.js file**: For some Backlift templates, a setup.js file is used to create the App namespace.
+
+* **the config.yml file**: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules. For more about the conig.yml file please see the [config.yml reference](configuration.html).
+
+
+This avoids conflicts between your public files, and paths that you might set up using your backbone router.
+
+You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
+

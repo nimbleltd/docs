@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Backlift Documentation</title>
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans&subset=latin">
+    <link type="text/css" rel="stylesheet" href="/docs/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="/docs/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="/docs/css/print.css" media="print">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/default.min.css">
+    
+        <link type="text/css" rel="stylesheet" href="style.css">
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    
+    <script type="text/javascript" src="/docs/js/viewer.js"></script>
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        
+            <header id="header">
+                <h1><a href="/docs/">Backlift Documentation</a></h1>
+            </header>
+        
+        
+    <div id="sidebar">
+        <nav id="toc">
+            <ol>
+                
+                    <li>
+                        <a href="/docs/readme.html#backlift">Backlift</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/readme.html#introduction">Introduction</a></li>
+                                
+                                    <li><a href="/docs/readme.html#getting-started-with-dropbox">Getting started with Dropbox</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/basics.html#backlift-basics">Backlift basics</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/basics.html#creating-an-app">Creating an app</a></li>
+                                
+                                    <li><a href="/docs/basics.html#backlift-variables-and-the-configyml-file">Backlift variables and the config.yml file</a></li>
+                                
+                                    <li><a href="/docs/basics.html#compilers-and-optimization">Compilers and optimization</a></li>
+                                
+                                    <li><a href="/docs/basics.html#the-admin-site">The admin site</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/persistence.html#data-persistence">Data persistence</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/persistence.html#collections-and-models">Collections and models</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#the-persistence-api">The persistence API</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#persistence-with-backbonejs">Persistence with Backbone.js</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#special-object-attributes">Special object attributes</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/validation.html#validation">Validation</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/validation.html#backlift-collections-and-schemas">Backlift collections and schemas</a></li>
+                                
+                                    <li><a href="/docs/validation.html#defining-schemas">Defining schemas</a></li>
+                                
+                                    <li><a href="/docs/validation.html#validation-errors">Validation errors</a></li>
+                                
+                                    <li><a href="/docs/validation.html#validation-rule-reference">Validation rule reference</a></li>
+                                
+                                    <li><a href="/docs/validation.html#common-validation-rule-parameters">Common validation rule parameters</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/authorization.html#authorization">Authorization</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/authorization.html#user-data">User data</a></li>
+                                
+                                    <li><a href="/docs/authorization.html#creating-users-and-signing-in">Creating users and signing in</a></li>
+                                
+                                    <li><a href="/docs/authorization.html#permissions-and-access-control">Permissions and access control</a></li>
+                                
+                                    <li><a href="/docs/authorization.html#using-validation-rules-to-set-permissions">Using validation rules to set permissions</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/api.html#backlift-api">Backlift API</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/api.html#persistence">Persistence</a></li>
+                                
+                                    <li><a href="/docs/api.html#authorization-and-users">Authorization and Users</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/commandline.html#the-backlift-command-line-utility">The Backlift Command Line Utility</a>
+                        
+                            <ol>
+                                
+                            </ol>
+                        
+                    </li>
+                
+            </ol>
+        </nav>
+    </div>
+
+<article id="content">
+    <a name="backlift-api"></a><h1>Backlift API</h1>
+<p>This is a reference for the Backlift API. Each API entry will have a definition, for example:
+
+</p>
+<pre><code>GET /backlift/auth/currentuser</code></pre>
+<p>This specifies that a GET request can be sent to the /backlift/auth/currentuser URL. 
+
+</p>
+<p>All requests should use the app&#39;s domain as the host name. For example, the app <code>myapp-1ja0s</code> should send the above request to:
+
+</p>
+<pre><code class="no-highlight">https://myapp-1ja0s.backliftapp.com/backlift/auth/currentuser</code></pre>
+
+<p>In practice, requests using jQuery $.ajax functions can leave off the domain name, and just send requests to /backlift/auth/currentuser like so:
+
+</p>
+<pre><code class="javascript">$.ajax({
+    type: "GET",
+    url: "/backlift/auth/currentuser",
+    success: function(result) { 
+        console.log(result); 
+    }
+});  
+</code></pre>  
+
+<p>All requests must be sent via https. Some requests require a logged in user or are effected by the current user session. The user session is managed using the auth login and logout APIs.
+
+</p>
+<p>For PUT or POST requests, parameters must be sent in the body of the request and can either be a JSON object, or a list of URL encoded parameters. All responses will be JSON.
+
+</p>
+<a name="persistence"></a><h2>Persistence</h2>
+<p>List of persistence API entries:
+
+</p>
+<ul>
+<li><a href="api.html#retrieve-all-models-in-a-collection">Retrieve all models in a collection</a></li>
+<li><a href="api.html#create-a-new-model">Create a new model</a></li>
+<li><a href="api.html#retrieve-a-model-from-a-collection">Retrieve a model from a collection</a></li>
+<li><a href="api.html#update-a-model">Update a model</a></li>
+<li><a href="api.html#delete-a-model">Delete a model</a></li>
+</ul>
+<p></p>
+
+<a name="retrieve-all-models-in-a-collection"></a><h3>Retrieve all models in a collection</h3>
+<pre><code>GET /backliftapp/&lt;collection&gt;</code></pre>
+<p>Returns a list of models in a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Example usage:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;GET&quot;,
+    url: &quot;/backliftapp/todos&quot;,
+    success: function(result) { 
+        console.log(result); 
+    }
+});
+
+// result: 
+// [{
+//    &quot;id&quot;:&quot;8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+//    &quot;title&quot;:&quot;Do something&quot;,
+//    &quot;order&quot;:1
+//    ...
+// },{
+//    &quot;id&quot;:&quot;4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;,
+//    &quot;title&quot;:&quot;Something else&quot;,
+//    &quot;order&quot;:2
+//    ...
+// }]</code></pre>
+<a name="create-a-new-model"></a><h3>Create a new model</h3>
+<pre><code>POST /backliftapp/&lt;collection&gt;</code></pre>
+<p>Creates a new model for a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Parameters:
+
+</p>
+<ul>
+<li><strong>id</strong>: the id of the new object. If no id is supplied, the object will be assigned a random id. </li>
+<li>... any additional parameters passed will become properties of the new model</li>
+</ul>
+<p>Returns: A copy of the new model that will include a new id property if one has been assigned.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;/backliftapp/todos&quot;, 
+    data: {
+        title: &quot;Write Code&quot;,
+        order: 3
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;,
+//    &quot;title&quot;:&quot;Write Code&quot;,
+//    &quot;order&quot;:&quot;3&quot;,
+//    ...
+// }</code></pre>
+<p>Errors:
+
+</p>
+<ul>
+<li><p><strong>400 Bad Request</strong>: If the data submitted doesn&#39;t pass one of the validation tests, the response will be a 400 error. The result will be a JSON object with a &#39;form_errors&#39; property that contains a dictionary where the keys are names of the property for which a validation error was raised, and the values are lists of the validation errors for each property. For example:</p>
+<pre><code>{&quot;form_errors&quot;:
+    &quot;title&quot;: [&quot;must be 25 characters or less&quot;]
+} </code></pre>
+</li>
+<li><p><strong>403 Not Authorized</strong>: This error occurs if the currently signed-in user doesn&#39;t have permission to perform this operation. This can occur if the model has an id that matches an existing model in the collection owned by another user. It can also occur if the collection&#39;s schema has an _owner_permissions attribute with a default that lacks create permissions. See <a href="authorization.html#permissions-and-access-control">permissions and access control</a> or more information.</p>
+</li>
+</ul>
+<a name="retrieve-a-model-from-a-collection"></a><h3>Retrieve a model from a collection</h3>
+<pre><code>GET /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<p>Returns a models. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Example usage:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;GET&quot;,
+    url: &quot;/backliftapp/todos/8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+    success: function(result) { 
+        console.log(result); 
+    }
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+//    &quot;title&quot;:&quot;Do something&quot;,
+//    &quot;order&quot;:1
+//    ...
+// }</code></pre>
+<a name="update-a-model"></a><h3>Update a model</h3>
+<pre><code>PUT /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<p>Updates a model. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Parameters:
+
+</p>
+<ul>
+<li><strong>id</strong>: the id of the new object. If no id is supplied, the object will be assigned a random id. </li>
+<li>... any additional parameters passed will become properties of the new model</li>
+</ul>
+<p>Returns: The updated model.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;PUT&quot;,
+    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    data: {
+        title: &quot;Write MORE Code&quot;,
+        order: 1
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;,
+//    &quot;title&quot;:&quot;Write MORE Code&quot;,
+//    &quot;order&quot;:&quot;1&quot;,
+//    ...
+// }</code></pre>
+<p>Errors:
+
+</p>
+<ul>
+<li><p><strong>400 Bad Request</strong>: If the data submitted doesn&#39;t pass one of the validation tests, the response will be a 400 error. The result will be a JSON object with a &#39;form_errors&#39; property that contains a dictionary where the keys are names of the property for which a validation error was raised, and the values are lists of the validation errors for each property. For example:</p>
+<pre><code>{&quot;form_errors&quot;:
+    &quot;title&quot;: [&quot;must be 25 characters or less&quot;]
+} </code></pre>
+</li>
+<li><p><strong>403 Not Authorized</strong>: This error occurs if the currently signed-in user doesn&#39;t have permission to perform this operation. This can occur if the model to be updated is owned by another user, and the _public_permissions property excludes write permission. See <a href="authorization.html#permissions-and-access-control">permissions and access control</a> or more information.</p>
+</li>
+</ul>
+<a name="delete-a-model"></a><h3>Delete a model</h3>
+<pre><code>DELETE /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<p>Removes a model from it&#39;s collection. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;DELETE&quot;,
+    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    success: function(result) { 
+        console.log(&quot;Deleted!&quot;);
+    } 
+});</code></pre>
+<p>Errors:
+
+</p>
+<ul>
+<li><strong>403 Not Authorized</strong>: This error occurs if the currently signed-in user doesn&#39;t have permission to perform this operation. This can occur if the model to be updated is owned by another user, and the _public_permissions property excludes delete permission. See <a href="authorization.html#permissions-and-access-control">permissions and access control</a> or more information.</li>
+</ul>
+<a name="authorization-and-users"></a><h2>Authorization and Users</h2>
+<a name="register"></a><h3>Register</h3>
+<pre><code>POST /backlift/auth/register  
+POST /backlift/auth/registernoemail
+POST /backlift/auth/registeremailonly</code></pre>
+<p>Creates a user. See the section on <a href="authorization.html">authorization</a> for more detail.
+
+</p>
+<p>Parameters: (see <a href="validation.html#validation-rule-reference">validation reference</a>)
+
+</p>
+<pre><code>// regsiter and registernoemail
+username: {type: &#39;identifier&#39;, required: yes, unique: yes}     
+// register and registeremailonly
+email: {type: &#39;email&#39;, required: yes, unique: yes}             
+password: {type: &#39;password&#39;, required_if_empty: &#39;password1&#39;}
+password1: {type: &#39;password&#39;, required_if_empty: &#39;password&#39;}
+password2: {type: &#39;password&#39;, must_equal: &#39;password1&#39;}</code></pre>
+<p>Returns: The created user model
+
+</p>
+<p>Example using AJAX:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;/backlift/auth/register&quot;, 
+    data: {
+        username: &quot;username&quot;,
+        email: &quot;user@example.com&quot;,
+        password1: &quot;password&quot;,
+        password2: &quot;password&quot;
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;JPwLMxPHmJDkGpwk&quot;
+//    &quot;email&quot;: &quot;user@example.com&quot;,
+//    &quot;username&quot;: &quot;username&quot;,
+//    &quot;groups&quot;: [&quot;JPwLMxPHmJDkGpwk&quot;],
+//    &quot;_modified&quot;: &quot;2012-12-17T07:18:23.823617Z&quot;,
+//    &quot;_created&quot;: &quot;2012-12-17T07:18:23.823603Z&quot;,
+//    &quot;profile&quot;: { 
+//        &quot;username&quot;: &quot;username&quot;,
+//        &quot;_created&quot;: &quot;2012-12-17T07:18:24.574915Z&quot;,
+//        &quot;_modified&quot;:&quot;2012-12-17T07:18:24.574940Z&quot;,
+//        &quot;_owner&quot;: &quot;JPwLMxPHmJDkGpwk&quot;
+//    }
+// }</code></pre>
+<p>Example using a form:
+
+</p>
+<pre><code>&lt;form method=&quot;POST&quot; action=&quot;/backlift/auth/registernoemail&quot;&gt;
+    Username: &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+    Password: &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;_next&quot; value=&quot;/home&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre>
+<a name="login"></a><h3>Login</h3>
+<pre><code>POST /backlift/auth/login</code></pre>
+<p>Signs in a user. See the section on <a href="authorization.html">authorization</a> for more detail.
+
+</p>
+<p>Parameters: (see <a href="validation.html#validation-rule-reference">validation reference</a>)
+
+</p>
+<pre><code class="javascript">username: {type: 'identifier', required_if_empty: 'email'}
+email: {type: 'email', required_if_empty: 'username'}
+password: {type: 'password', required: yes}
+</code></pre>
+
+<p>Example using AJAX:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;/backlift/auth/login&quot;, 
+    data: {
+        username: &quot;username&quot;,
+        password: &quot;password&quot;
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: (same as register)
+// {
+//    &quot;id&quot;:&quot;JPwLMxPHmJDkGpwk&quot;
+//    &quot;email&quot;: &quot;user@example.com&quot;,
+//    &quot;profile&quot;: { 
+//        &quot;username&quot;: &quot;username&quot;,
+//        &quot;_owner&quot;: &quot;JPwLMxPHmJDkGpwk&quot;,
+//        ...
+//    },
+//    ...
+// }</code></pre>
+<p>Example using a form:
+
+</p>
+<pre><code>&lt;form method=&quot;POST&quot; action=&quot;/backlift/auth/login&quot;&gt;
+    Username: &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+    Password: &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;_next&quot; value=&quot;/home&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre>
+
+</article>
+
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="/docs/all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="/docs/all.html?print=1">Print all pages</a>
+            
+        </footer>
+    </div>
+</body>
+</html>

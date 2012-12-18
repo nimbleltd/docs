@@ -5,7 +5,7 @@
 
 ## Backlift collections and schemas
 
-In backlift, the universal container is the collection. Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don't need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection's schema.
+Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don't need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection's schema.
 
 By default there are no validation rules on any models in backlift. Anything can be stored in a collection, and new collections can be created on the fly. This is useful during development when the data model of an application is changing regularly. Later, when the application is ready for production, schema validation rules may be applied to "lock down" the kinds of data that backlift accepts.
 
@@ -69,16 +69,21 @@ The following is a list of validation rule types, and their type specific parame
 *   '**auto:unique_uuid**':
     A string that matches the regex pattern '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'. A random uuid will be substituted for this attribute's value when the object is initially created. This value will be unique amongst values for this attribute on this collection.
 
-*   '**auto:unique_16_aA0**':
-    A string that matches the regex pattern '^[a-zA-Z0-9]{16}$'. A random string containing 16 alphanumeric characters, upper and lowercase, will be substituted for this attribute's value when the object is initially created. This value will be unique amongst values for this attribute on this collection.
+*   '**auto:random_16_a0**':
+    see below
 
-*   '**auto:datetime**':
-    The current date and time in ISO standard format will be substituted for this attribute's value when the object is first created.
+*   '**auto:random_16_aA0**':
+    see below
+
+*   '**auto:unique_16_a0**':
+    see below
+
+*   '**auto:unique_16_aA0**':
+    A string that matches the regex pattern '^[a-zA-Z0-9]{16}$' or '^[a-z0-9]{16}$'. A random string containing 16 alphanumeric characters (just lowercase, or upper and lowercase), will be substituted for this attribute's value when the object is initially created. If unique is specified the value will be unique amongst values for this attribute on this collection.
 
 This list is incomplete at this time. We will update this list as new validation rules are created.
 
 We realize that it is impossible to perform all server side data validation using a predetermined finite set of validation rules. Our goal is not to cover all possibilities. We are currently working to define a reasonable set that covers as much territory as possible. We are also evaluating alternatives for how to handle more custom validation needs.
-
 
 ## Common validation rule parameters
 

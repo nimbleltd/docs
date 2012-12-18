@@ -58,114 +58,66 @@
 
 
 </p>
-<a name="getting-started"></a><h1>Getting Started</h1>
-<a name="setup-the-backlift-command-line-utility"></a><h2>Setup the Backlift Command Line Utility</h2>
-<p>Open up your terminal and download the Backlift Command Line Interface (CLI) by typing:
+<a name="getting-started-with-dropbox"></a><h2>Getting started with Dropbox</h2>
+<p>Dropbox is now the suggested way to work with Backlift. You can login with Dropbox from the landing page at <a href="https://www.backlift.com">backlift.com</a>. Alternatively, if you already have an account, you can login and click on the &quot;create app&quot; page. From here you can link your account to Dropbox.
 
 </p>
-<pre><code>sudo easy_install backlift</code></pre>
-<p>Alternatively, you can use pip to install the Backlift CLI into a virtual environment.
+<p>Linking Dropbox will give Backlift access to the Apps/Backlift folder within your Dropbox account. No other Dropbox content will be accessible to Backlift. This means that you can safely link Backlift with Dropbox without worrying that private information in your Dropbox account will be shared.
 
 </p>
-<p>Once you have backlift installed, create an account at <a href="https://backlift.com">backlift.com</a> by clicking on the &#39;Sign-in&#39; button in the upper right corner. You will need a registration key. In order to obtain one please click the &#39;Get Early Access&#39; link and supply your email address. We will send you a key as soon as possible.
-
-</p>
-<p>Once you have your api-key, setup backlift with the command:
-
-</p>
-<pre><code>backlift setup &lt;api-key&gt;</code></pre>
-<p>Now you&#39;re ready to create new apps and upload them to backlift.
-
-</p>
-<p>From time to time you should make sure that you have the most recent version of the Backlift CLI. You can check that by typing <code>backlift --version</code>. It should match the &#39;Backlift CLI current version&#39; listed on your account dashboard. You can update your Backlift CLI by entering the command 
-
-</p>
-<pre><code>sudo easy_install --update backlift.</code></pre>
-<a name="create-and-upload-a-new-app"></a><h2>Create and Upload a new app</h2>
-<p>Create a new app with the command:
-
-</p>
-<pre><code>backlift create newapp</code></pre>
-<p>This will create a new folder in the current directory called &#39;newapp&#39; and begin downloading the backlift default project template. Once the project template has finished downloading, check it out by opening the &#39;newapp&#39; folder with a text editor.
-
-</p>
-<p>To see this app running on a public web server, first change directories into the &#39;newapp&#39; folder and type &#39;backlift push&#39;.
-
-</p>
-<pre><code>cd newapp
-backlift push</code></pre>
-<p>This will upload the content of the &#39;newapp&#39; folder to Backlift. Alternatively you can use the command:
-    <code>backlift watch</code>
-
-</p>
-<p>The watch command will first upload the &#39;newapp&#39; folder and then wait for changes to the project. Any time you edit and save a file in the &#39;newapp&#39; folder while the watch command is running, your changes will automatically by synced to Backlift.
-
-
-</p>
-<a name="view-and-manage-your-app"></a><h2>View and manage your app</h2>
-<p>You can launch a browser to view your app by typing:
-
-</p>
-<pre><code>backlift open</code></pre>
-<p>You can alternatively view the website&#39;s admin page by typing:
-
-</p>
-<pre><code>backlift admin</code></pre>
-<p>That&#39;s all there is to getting started. The demo template contains a tutorial that will show you how to build a backbone.js app with Backlift. You can run it by typing:
-
-</p>
-<pre><code>backlift create:demo demoapp</code></pre>
+<p>For an alternative to Dropbox, see the section on the <a href="commandline.html">command line utility</a>.</p>
 
 <a name="backlift-basics"></a><h1>Backlift basics</h1>
-<a name="app-templates"></a><h2>App templates</h2>
-<p>Backlift comes with a set of examples and starter templates that you can access directly with the backlift create command. Just type:
+<a name="creating-an-app"></a><h2>Creating an app</h2>
+<p>You can create a new app with Dropbox using the <a href="https://www.backlift.com/dashboard/createapp">create new app</a> form. Your app&#39;s files will be placed in the <code>/Apps/Backlift</code> folder of your Dropbox folder. While you are connected to the internet, any changes you make will automatically be synchronized to your Backlift app&#39;s website via Dropbox. 
 
 </p>
-<pre><code>backlift create:&lt;template_name&gt; newapp </code></pre>
-<p>You can find a list of available templates on github at <a href="http://github.com/backlift/backlift-templates">http://github.com/backlift/backlift-templates</a>.
+<p>To see your new app online, visit your app&#39;s website with a browser, such as Google Chrome. You can find a link to your app&#39;s website in the <a href="https://www.backlift.com/dashboard/apps">apps</a> section of your Backlift dashboard.
 
 </p>
-<p>We&#39;d love to add your example or starter template to the backlift command line utility. Just submit a pull request to the github project above. We&#39;ll evaluate it and, if we approve, we&#39;ll make it available directly by typing <code>backlift create:&lt;your app here&gt;</code>.
+<a name="app-templates"></a><h3>App templates</h3>
+<p>Backlift comes with a set of examples and starter templates. You can see the list of templates in the <a href="https://www.backlift.com/dashoboard/createapp">create new app</a> area of the dashboard. You can also find a list of available templates on github at <a href="http://github.com/backlift/backlift-templates">http://github.com/backlift/backlift-templates</a>. 
 
 </p>
-<a name="project-layout"></a><h2>Project layout</h2>
-<p>At the root of your app is a public folder. This contains all the publicly accessible files that make up your webapp. The public folder may include javascript or coffeescript files, templates, and css or less stylesheets. All public files will be compiled into css and javscript files when you run <code>backlift push</code>. For more information about this build process, please see the section on <a href="#compilers-and-optimization">compilers and optimization</a>. You can setup any folder structure for your public files, but we suggest the following system that is used in most backlift templates:
+<p>We&#39;d love to add your example or starter template to the backlift command line utility. Just submit a pull request to the backlift-templates project on github.
 
 </p>
-<ul>
-<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main javascript or coffeescript file that defines a Backbone router. This folder can also contain .js or .coffee files for your Models, Collections, and Views.</p>
-</li>
-<li><p><strong>/public/app/templates/ </strong>: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. </p>
-</li>
-<li><p><strong>/public/app/styles/ </strong>: This folder should contain .css or .less files that define the look and layout of your webapp.</p>
-</li>
-</ul>
-<p>There are a few additional project files:
+<a name="your-app39s-url"></a><h3>Your app&#39;s URL</h3>
+<p>Backlift apps are assigned a unique and obscure URL based on the name you provide when creating the app. The format of the URL is:
 
 </p>
-<ul>
-<li><p><strong>the /public/libraries folder</strong>: This is where third party libraries, such as bootstrap.css and backbone.js go.</p>
-</li>
-<li><p><strong>the /public/setup.js file</strong>: For some backlift templates, a setup javascript file is used to create the App namespace.</p>
-</li>
-<li><p><strong>the config.yml file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
-</li>
-</ul>
-<p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
+<pre><code>&lt;appname&gt;-&lt;random_string&gt;.backliftapp.com</code></pre>
+<p>This URL is not easy to guess, so you won&#39;t have unexpected visitors to your website while it&#39;s still in development. However it&#39;s publicly accessible, so you can share your work with others by sending them the URL. 
 
 </p>
-<pre><code>https://&lt;your_app_id&gt;.backliftapp.com/public/&lt;file_path&gt; </code></pre>
-<p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
+<p>In the future backlift will support custom URLs using your own domain.
 
 </p>
-<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
+<a name="project-layout"></a><h3>Project layout</h3>
+<p>Files and folders within your app&#39;s folder can be layed out any way you like. Any files you add to your app folder will be accessible via the same path from your app&#39;s URL. For example if you create an &quot;about.html&quot; file in the /pages folder of your app, that file will be available by browsing to:
+
+</p>
+<pre><code>&lt;your-app&gt;.backliftapp.com/pages/about.html</code></pre>
+<a name="backlift-variables-and-the-configyml-file"></a><h2>Backlift variables and the config.yml file</h2>
+<p>If you look at the index.html file from the simple-site template, you will see template variables, such as the {{&nbsp;scripts&nbsp;}} and {{&nbsp;styles&nbsp;}} variables. These variables help you maintain your website by keeping track of your project files in a central place, the config.yml file. When your html page is rendered, Backlift will substitute those variables with appropriate data from the config.yml file. For example, the {{&nbsp;scripts&nbsp;}} variable will be replaced by a list of <code>&lt;script&gt;</code> tags, one for each file listed in the config.yml scripts variable.
+
+</p>
+<p>For a list of Backlift variables, please see the <a href="variables.html">variables reference</a>.
+
+</p>
+<p>For more information about the configuration options available in the config.yml file, see the <a href="configuration.html">configuration reference</a>.
+
+</p>
+<a name="the-static-folder"></a><h3>The Static folder</h3>
+<p>Normally you may use Backlift variables in any html file that you add to your app. However, static files, like javascript, css and image files, shouldn&#39;t need to use the Backlift template variables. To speed up rendering of these pages, and to make better use of caching mechanisms, Backlift allows you to specify a static folder. Files within the static folder will not be rendered with the Backlift variables. The static folder can be set in your config.yml file. The default static folder is /public.
 
 </p>
 <a name="compilers-and-optimization"></a><h2>Compilers and optimization</h2>
-<p>When you run <code>backlift push</code> your code is uploaded to the backlift server and optionally compiled and optimized. During the compilation phase, files with known extensions are compiled into javascript or css. During the optimization phase, javascript and css files are concatenated and minified. 
+<p>After your changes are uploaded via Dropbox or the CLI, Backlift will compile certain files and optionally optimize your javascript and css.
 
 </p>
-<p>The following is a list of the known file extensions, the type of file generated, and the associated compiler:
+<a name="compilation-phase"></a><h3>Compilation phase</h3>
+<p>During the compilation phase, files with known extensions are compiled into javascript or css. The following is a list of the known file extensions, the type of file generated, and the associated compiler:
 
 </p>
 <ul>
@@ -174,17 +126,14 @@ backlift push</code></pre>
 <li>.handlebars --&gt; .js (<a href="http://handlebarsjs.com/">handlebars</a> template compiler)</li>
 <li>.less --&gt; .css (<a href="http://lesscss.org/">less</a> compiler)</li>
 </ul>
-<p>Backlift uses the YUI compressor to minify the concatenated javascript and css files.
-
-</p>
 <p>You can control which files are passed to the compilers by adding a <code>compile</code> directive to your project&#39;s config.yml file. The compile directive should include a list of files that will be compiled. The default, if no compile directive is specified, includes the following:
 
 </p>
 <pre><code class="no-highlight">compile:
-- public/**/*.jst
-- public/**/*.handlebars
-- public/**/bootstrap*.less
-- public/**/*.coffee
+- /**/*.jst
+- /**/*.handlebars
+- /**/bootstrap*.less
+- /**/*.coffee
 </code></pre>
 
 <p>(Note that only the main bootstrap.less file will typically be compiled. This is because the bootstrap.less file imports several .less components. Attempting to pass those component .less files directly to the less compiler will result in an error.)
@@ -193,53 +142,110 @@ backlift push</code></pre>
 <p>Typically it will not be necessary to adjust the compile configuration. If no files of a particular kind exist, the compiler for that file type will not be invoked.
 
 </p>
-<p>Optimization can be enabled or disabled using the <code>optimize</code> setting within config.yml.
+<a name="compilation-results"></a><h3>Compilation results</h3>
+<p>The .js and .css files generated by the compilation phase will be added to the {{&nbsp;scripts&nbsp;}} and {{&nbsp;styles&nbsp;}} Backlift variables. 
+
+</p>
+<p>The scripts generated by the Underscore template compiler include code that adds the template to a global JST object. To use the template, simply call the function with the same name as the original template file, and pass it the template parameters to be rendered. For example, the file &quot;profile.jst&quot; will create a profile template function that can be used like so:
+
+</p>
+<pre><code>var rendered = JST.profile({username: &quot;Cole&quot;, hometown: &quot;San Francisco&quot;});
+$(&quot;#profile-div&quot;).html(rendered);</code></pre>
+<p>To use the scripts generated by the handlebars compiler, see the <a href="http://handlebarsjs.com/">handlebars documentation</a>. You will need to include the handlebars.js script in your config.yml scripts list. Here is an example of a &quot;profile.handlebars&quot; template in use:
+
+</p>
+<pre><code>var rendered = Handlebars.templates.profile({
+    username: &quot;Cole&quot;,
+    hometown: &quot;San Francisco&quot;
+});
+$(&quot;#profile-div&quot;).html(rendered);</code></pre>
+<a name="optimization-phase"></a><h3>Optimization phase</h3>
+<p>During the optimization phase, javascript and css files are concatenated and minified. Optimization can be enabled or disabled using the <code>optimize</code> setting within config.yml.
 
 </p>
 <pre><code>optimize: on</code></pre>
 <p>By default optimization is disabled. This reduces the time required to build your webapp, and avoides the obscure code generated by minification. Optimization should not be used during development.
 
 </p>
-<p>If you do not include an index.html file in your project, one will be generated automatically that includes the results of the compile and optimize process. If you manually specify an index.html file, be sure to link the files generated by the compiler and optimizer. Compiled files will be named the same as their source file except for the extension. The optimizer will generate two files, <code>\public\optimized-scripts.js</code> and <code>\public\optmized-styles.css</code>.
+<p>Backlift uses the YUI compressor to minify and concatenate javascript and css files. The optimizer will generate two files, <code>\public\optimized-scripts.js</code> and <code>\public\optmized-styles.css</code>. The {{&nbsp;scripts&nbsp;}} and {{&nbsp;styles&nbsp;}} Backlift variables will include only these two files if the optimizer is enabled.
 
 </p>
 <a name="the-admin-site"></a><h2>The admin site</h2>
-<p>Each app gets a unique admin page that can be used for debugging and, in the future, managing security features like validation and authorization. You can view your app&#39;s admin page by running:
+<p>Each app gets a unique admin page that can be used for debugging and, in the future, managing security features like validation and authorization. You can view your app&#39;s admin page by clicking on the small gear icon under your app in the <a href="https://www.backlift.com/dashboard/apps">apps</a> section of your Backlift dashboard.
 
 </p>
-<pre><code>backlift admin</code></pre>
-<p>from your app&#39;s working folder, or visit
+<p>As you develop your app, the admin page will change to reflect your app&#39;s collections and request history. This makes it a valuable debugging tool.
+</p>
+
+<a name="data-persistence"></a><h1>Data persistence</h1>
+<p>In Backlift any app can store data on the server and retreive it later. This allows apps to implement complex functionality, such as collecting data from users via forms and visualizing that data in meaningful ways, or cordinating moves in a multiplayer game. You don&#39;t need to understand databases or SQL to store and retrieve data, just a basic understanding of javascript and jQuery. If you know how to fetch data jusing jQuery&#39;s ajax() methods, you can use the Backlift persistence API.
 
 </p>
-<pre><code>https://www.backlift.com/admin#&lt;app_id&gt;</code></pre>
-<p>As you develop your app, this page will change to reflect your app&#39;s collections and request history. This makes it a valuable debugging tool.
-
-
-</p>
-<a name="data-persistence"></a><h2>Data persistence</h2>
-<p>When communicating with the Backlift server, as long as you prefix your AJAX urls with &quot;/backliftapp/&quot;, the backlift server will automatically store and fetch any json data that you send. For example, in backbone, you can set the url attribute of your collections, or the urlRoot attribute of your models using the &quot;/backliftapp/&quot; prefix and then use backbone&#39;s standard save or create methods.
+<a name="collections-and-models"></a><h2>Collections and models</h2>
+<p>Backlift uses just one data structure for persistence, the collection. A collection is just a group of things. Each thing in a collection is referred to as a model, and each model holds a set of related properties that describe the thing. A property has a name and a value. The models in a Backlift collection are not required to have the same properties.
 
 </p>
-<p>Specifically:
+<p>For example, if you were building a library app, you might have a books collection. Each model in the collection would represent a single book, and might have a name, author, status and optional waiting property. Here&#39;s what such a collection would look like in Javascript Object Notation (JSON):
+
+</p>
+<pre><code>{&quot;books&quot;: [
+    {&quot;name&quot;: &quot;The Corrections&quot;,
+     &quot;author&quot;: &quot;Jonathan Franzen&quot;,
+     &quot;status&quot;: &quot;cheked-out&quot;,
+     &quot;waiting&quot;: &quot;Cole Krumbholz&quot;},
+
+    {&quot;name&quot;: &quot;Freedom&quot;,
+     &quot;author&quot;: &quot;Jonathan Franzen&quot;,
+     &quot;status&quot;: &quot;available&quot;}
+]}</code></pre>
+<a name="the-persistence-api"></a><h2>The persistence API</h2>
+<p>Data is stored and retrieved using the persistence API. It&#39;s not a formal API beacause any URL that matches the pattern below is acceptable:
 
 </p>
 <ul>
-<li><p>GET /backliftapp/&lt;collection&gt;: will retrieve a list of the items in the collection.</p>
+<li><p>GET /backliftapp/&lt;collection&gt;: will retrieve a list of the models in a collection.</p>
 </li>
-<li><p>POST /backliftapp/&lt;collection&gt;: will create a new item and add it to the collection.</p>
+<li><p>POST /backliftapp/&lt;collection&gt;: will create a new model and add it to a collection.</p>
 </li>
-<li><p>PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update an item in the collection.</p>
+<li><p>GET /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.</p>
 </li>
-<li><p>DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete an item.</p>
+<li><p>PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.</p>
+</li>
+<li><p>DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.</p>
 </li>
 </ul>
-<p>The data should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
+<p>The data for PUT and POST requests should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
 
 </p>
-<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file or the admin panel. (coming soon!)
-
+<p>Backlift stores the data as JSON documents, and does not need to know what properties a document will have in advance. In addition, collections do not need to be created before they are used. If a POST request is made for a collection the doesn&#39;t exist, Backlift will create it. If a GET request is made on a collection that doesn&#39;t exist, Backlift will return an empty set.
 
 </p>
+<p>Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file. See the section on <a href="validation.html">data validation</a> for documentation on how to &quot;lock down&quot; a collection.
+
+</p>
+<a name="persistence-with-backbonejs"></a><h2>Persistence with Backbone.js</h2>
+<p>When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with &quot;/backliftapp/&quot;. Backbone&#39;s default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work &quot;out of the box&quot;. 
+
+</p>
+<p>The following example shows how to set the url attribute of your collections and then use backbone&#39;s standard save and fetch methods.
+
+</p>
+<pre><code>var MyBook = Backbone.Model.extend({});
+
+var MyBooks = Backbone.Collection.extend({
+    model: MyBook,
+    url: &quot;/backliftapp/books&quot;
+});
+
+var books = new MyBooks();
+books.fetch();   // will issue a GET /backliftapp/books
+
+var book = new MyBook({
+    title: &quot;The Corrections&quot;
+});
+
+books.add(book);
+book.save();   // will issue a POST /backliftapp/books</code></pre>
 <a name="special-object-attributes"></a><h2>Special object attributes</h2>
 <p>Each time the backlift server persists a new object, a few attributes are applied automatically:
 
@@ -253,9 +259,21 @@ backlift push</code></pre>
 </li>
 <li><p><strong>&#39;_modified&#39;</strong>: Each time an object is updated, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
 </li>
-<li><p><strong>&#39;_id&#39;</strong>: Backlift mirrors the id attribute in an &#39;_id&#39; attribute. The &#39;_id&#39; attribute is the primary attribute used to store and retrieve data by the backlift database. In the future this attribute may be filtered out, so don&#39;t use it.</p>
+<li><p><strong>&#39;_id&#39;</strong>: Backlift mirrors the id attribute in an &#39;_id&#39; attribute. The &#39;_id&#39; attribute is used by backlift&#39;s mongodb database. In the future this attribute may be filtered out, so it&#39;s best not to rely on it.</p>
 </li>
 </ul>
+<a name="a-note-about-dates"></a><h3>A note about dates</h3>
+<p>Backlift returns date/time values using the ISO 8601 format in UTC. These values can be parsed by Javascript&#39;s native Date object in all modern browsers. Here is an example of how to parse a date returned by backlift:
+
+</p>
+<pre><code>// an example of ISO 8601 UTC time
+var obj = {_created: &quot;2012-12-18T05:36:47.946Z&quot;}; 
+
+var date = new Date(obj._created);
+
+console.log(date.toString());   // Mon Dec 17 2012 21:36:47 GMT-0800 (PST)
+console.log(date.toJSON()));    // 2012-12-18T05:36:47.946Z</code></pre>
+<p>The choice to go with ISO 8601 was somewhat arbitrary. There are several date time formats, and no particular format is prescribed in the JSON specification. We chose this format partly because it&#39;s what Date.toJSON() generates.</p>
 
 <a name="validation"></a><h1>Validation</h1>
 <blockquote>
@@ -265,7 +283,7 @@ backlift push</code></pre>
 </p>
 </blockquote>
 <a name="backlift-collections-and-schemas"></a><h2>Backlift collections and schemas</h2>
-<p>In backlift, the universal container is the collection. Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don&#39;t need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection&#39;s schema.
+<p>Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don&#39;t need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection&#39;s schema.
 
 </p>
 <p>By default there are no validation rules on any models in backlift. Anything can be stored in a collection, and new collections can be created on the fly. This is useful during development when the data model of an application is changing regularly. Later, when the application is ready for production, schema validation rules may be applied to &quot;lock down&quot; the kinds of data that backlift accepts.
@@ -334,18 +352,23 @@ A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4
 <li><p>&#39;<strong>auto:unique_uuid</strong>&#39;:
 A string that matches the regex pattern &#39;^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$&#39;. A random uuid will be substituted for this attribute&#39;s value when the object is initially created. This value will be unique amongst values for this attribute on this collection.</p>
 </li>
-<li><p>&#39;<strong>auto:unique_16_aA0</strong>&#39;:
-A string that matches the regex pattern &#39;^[a-zA-Z0-9]{16}$&#39;. A random string containing 16 alphanumeric characters, upper and lowercase, will be substituted for this attribute&#39;s value when the object is initially created. This value will be unique amongst values for this attribute on this collection.</p>
+<li><p>&#39;<strong>auto:random_16_a0</strong>&#39;:
+see below</p>
 </li>
-<li><p>&#39;<strong>auto:datetime</strong>&#39;:
-The current date and time in ISO standard format will be substituted for this attribute&#39;s value when the object is first created.</p>
+<li><p>&#39;<strong>auto:random_16_aA0</strong>&#39;:
+see below</p>
+</li>
+<li><p>&#39;<strong>auto:unique_16_a0</strong>&#39;:
+see below</p>
+</li>
+<li><p>&#39;<strong>auto:unique_16_aA0</strong>&#39;:
+A string that matches the regex pattern &#39;^[a-zA-Z0-9]{16}$&#39; or &#39;^[a-z0-9]{16}$&#39;. A random string containing 16 alphanumeric characters (just lowercase, or upper and lowercase), will be substituted for this attribute&#39;s value when the object is initially created. If unique is specified the value will be unique amongst values for this attribute on this collection.</p>
 </li>
 </ul>
 <p>This list is incomplete at this time. We will update this list as new validation rules are created.
 
 </p>
 <p>We realize that it is impossible to perform all server side data validation using a predetermined finite set of validation rules. Our goal is not to cover all possibilities. We are currently working to define a reasonable set that covers as much territory as possible. We are also evaluating alternatives for how to handle more custom validation needs.
-
 
 </p>
 <a name="common-validation-rule-parameters"></a><h2>Common validation rule parameters</h2>
@@ -436,6 +459,11 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </li>
 </ul>
 <a name="permissions-and-access-control"></a><h2>Permissions and access control</h2>
+<blockquote>
+<p><strong>Changes pending</strong>: It is likely that _groups and _group_permissions will be deprecated. In practice groups are infrequently used and they complicate the access control system. 12/17/12
+
+</p>
+</blockquote>
 <p>Backlift&#39;s authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
 
 </p>
@@ -491,6 +519,391 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 <p>This object cannot be read by the public. However the owner and members of this object&#39;s group will have access based on the default permissions.</p>
 </li>
 </ul>
+
+<a name="backlift-api"></a><h1>Backlift API</h1>
+<p>This is a reference for the Backlift API. Each API entry will have a definition, for example:
+
+</p>
+<pre><code>GET /backlift/auth/currentuser</code></pre>
+<p>This specifies that a GET request can be sent to the /backlift/auth/currentuser URL. 
+
+</p>
+<p>All requests should use the app&#39;s domain as the host name. For example, the app <code>myapp-1ja0s</code> should send the above request to:
+
+</p>
+<pre><code class="no-highlight">https://myapp-1ja0s.backliftapp.com/backlift/auth/currentuser</code></pre>
+
+<p>In practice, requests using jQuery $.ajax functions can leave off the domain name, and just send requests to /backlift/auth/currentuser like so:
+
+</p>
+<pre><code class="javascript">$.ajax({
+    type: "GET",
+    url: "/backlift/auth/currentuser",
+    success: function(result) { 
+        console.log(result); 
+    }
+});  
+</code></pre>  
+
+<p>All requests must be sent via https. Some requests require a logged in user or are effected by the current user session. The user session is managed using the auth login and logout APIs.
+
+</p>
+<p>For PUT or POST requests, parameters must be sent in the body of the request and can either be a JSON object, or a list of URL encoded parameters. All responses will be JSON.
+
+</p>
+<a name="persistence"></a><h2>Persistence</h2>
+<p>List of persistence API entries:
+
+</p>
+<ul>
+<li><a href="api.html#retrieve-all-models-in-a-collection">Retrieve all models in a collection</a></li>
+<li><a href="api.html#create-a-new-model">Create a new model</a></li>
+<li><a href="api.html#retrieve-a-model-from-a-collection">Retrieve a model from a collection</a></li>
+<li><a href="api.html#update-a-model">Update a model</a></li>
+<li><a href="api.html#delete-a-model">Delete a model</a></li>
+</ul>
+<p></p>
+
+<a name="retrieve-all-models-in-a-collection"></a><h3>Retrieve all models in a collection</h3>
+<pre><code>GET /backliftapp/&lt;collection&gt;</code></pre>
+<p>Returns a list of models in a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Example usage:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;GET&quot;,
+    url: &quot;/backliftapp/todos&quot;,
+    success: function(result) { 
+        console.log(result); 
+    }
+});
+
+// result: 
+// [{
+//    &quot;id&quot;:&quot;8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+//    &quot;title&quot;:&quot;Do something&quot;,
+//    &quot;order&quot;:1
+//    ...
+// },{
+//    &quot;id&quot;:&quot;4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;,
+//    &quot;title&quot;:&quot;Something else&quot;,
+//    &quot;order&quot;:2
+//    ...
+// }]</code></pre>
+<a name="create-a-new-model"></a><h3>Create a new model</h3>
+<pre><code>POST /backliftapp/&lt;collection&gt;</code></pre>
+<p>Creates a new model for a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Parameters:
+
+</p>
+<ul>
+<li><strong>id</strong>: the id of the new object. If no id is supplied, the object will be assigned a random id. </li>
+<li>... any additional parameters passed will become properties of the new model</li>
+</ul>
+<p>Returns: A copy of the new model that will include a new id property if one has been assigned.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;/backliftapp/todos&quot;, 
+    data: {
+        title: &quot;Write Code&quot;,
+        order: 3
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;,
+//    &quot;title&quot;:&quot;Write Code&quot;,
+//    &quot;order&quot;:&quot;3&quot;,
+//    ...
+// }</code></pre>
+<p>Errors:
+
+</p>
+<ul>
+<li><p><strong>400 Bad Request</strong>: If the data submitted doesn&#39;t pass one of the validation tests, the response will be a 400 error. The result will be a JSON object with a &#39;form_errors&#39; property that contains a dictionary where the keys are names of the property for which a validation error was raised, and the values are lists of the validation errors for each property. For example:</p>
+<pre><code>{&quot;form_errors&quot;:
+    &quot;title&quot;: [&quot;must be 25 characters or less&quot;]
+} </code></pre>
+</li>
+<li><p><strong>403 Not Authorized</strong>: This error occurs if the currently signed-in user doesn&#39;t have permission to perform this operation. This can occur if the model has an id that matches an existing model in the collection owned by another user. It can also occur if the collection&#39;s schema has an _owner_permissions attribute with a default that lacks create permissions. See <a href="authorization.html#permissions-and-access-control">permissions and access control</a> or more information.</p>
+</li>
+</ul>
+<a name="retrieve-a-model-from-a-collection"></a><h3>Retrieve a model from a collection</h3>
+<pre><code>GET /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<p>Returns a models. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Example usage:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;GET&quot;,
+    url: &quot;/backliftapp/todos/8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+    success: function(result) { 
+        console.log(result); 
+    }
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+//    &quot;title&quot;:&quot;Do something&quot;,
+//    &quot;order&quot;:1
+//    ...
+// }</code></pre>
+<a name="update-a-model"></a><h3>Update a model</h3>
+<pre><code>PUT /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<p>Updates a model. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Parameters:
+
+</p>
+<ul>
+<li><strong>id</strong>: the id of the new object. If no id is supplied, the object will be assigned a random id. </li>
+<li>... any additional parameters passed will become properties of the new model</li>
+</ul>
+<p>Returns: The updated model.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;PUT&quot;,
+    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    data: {
+        title: &quot;Write MORE Code&quot;,
+        order: 1
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;,
+//    &quot;title&quot;:&quot;Write MORE Code&quot;,
+//    &quot;order&quot;:&quot;1&quot;,
+//    ...
+// }</code></pre>
+<p>Errors:
+
+</p>
+<ul>
+<li><p><strong>400 Bad Request</strong>: If the data submitted doesn&#39;t pass one of the validation tests, the response will be a 400 error. The result will be a JSON object with a &#39;form_errors&#39; property that contains a dictionary where the keys are names of the property for which a validation error was raised, and the values are lists of the validation errors for each property. For example:</p>
+<pre><code>{&quot;form_errors&quot;:
+    &quot;title&quot;: [&quot;must be 25 characters or less&quot;]
+} </code></pre>
+</li>
+<li><p><strong>403 Not Authorized</strong>: This error occurs if the currently signed-in user doesn&#39;t have permission to perform this operation. This can occur if the model to be updated is owned by another user, and the _public_permissions property excludes write permission. See <a href="authorization.html#permissions-and-access-control">permissions and access control</a> or more information.</p>
+</li>
+</ul>
+<a name="delete-a-model"></a><h3>Delete a model</h3>
+<pre><code>DELETE /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<p>Removes a model from it&#39;s collection. See the section on <a href="persistence.html">persistence</a> for more detail.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;DELETE&quot;,
+    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    success: function(result) { 
+        console.log(&quot;Deleted!&quot;);
+    } 
+});</code></pre>
+<p>Errors:
+
+</p>
+<ul>
+<li><strong>403 Not Authorized</strong>: This error occurs if the currently signed-in user doesn&#39;t have permission to perform this operation. This can occur if the model to be updated is owned by another user, and the _public_permissions property excludes delete permission. See <a href="authorization.html#permissions-and-access-control">permissions and access control</a> or more information.</li>
+</ul>
+<a name="authorization-and-users"></a><h2>Authorization and Users</h2>
+<a name="register"></a><h3>Register</h3>
+<pre><code>POST /backlift/auth/register  
+POST /backlift/auth/registernoemail
+POST /backlift/auth/registeremailonly</code></pre>
+<p>Creates a user. See the section on <a href="authorization.html">authorization</a> for more detail.
+
+</p>
+<p>Parameters: (see <a href="validation.html#validation-rule-reference">validation reference</a>)
+
+</p>
+<pre><code>// regsiter and registernoemail
+username: {type: &#39;identifier&#39;, required: yes, unique: yes}     
+// register and registeremailonly
+email: {type: &#39;email&#39;, required: yes, unique: yes}             
+password: {type: &#39;password&#39;, required_if_empty: &#39;password1&#39;}
+password1: {type: &#39;password&#39;, required_if_empty: &#39;password&#39;}
+password2: {type: &#39;password&#39;, must_equal: &#39;password1&#39;}</code></pre>
+<p>Returns: The created user model
+
+</p>
+<p>Example using AJAX:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;/backlift/auth/register&quot;, 
+    data: {
+        username: &quot;username&quot;,
+        email: &quot;user@example.com&quot;,
+        password1: &quot;password&quot;,
+        password2: &quot;password&quot;
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: 
+// {
+//    &quot;id&quot;:&quot;JPwLMxPHmJDkGpwk&quot;
+//    &quot;email&quot;: &quot;user@example.com&quot;,
+//    &quot;username&quot;: &quot;username&quot;,
+//    &quot;groups&quot;: [&quot;JPwLMxPHmJDkGpwk&quot;],
+//    &quot;_modified&quot;: &quot;2012-12-17T07:18:23.823617Z&quot;,
+//    &quot;_created&quot;: &quot;2012-12-17T07:18:23.823603Z&quot;,
+//    &quot;profile&quot;: { 
+//        &quot;username&quot;: &quot;username&quot;,
+//        &quot;_created&quot;: &quot;2012-12-17T07:18:24.574915Z&quot;,
+//        &quot;_modified&quot;:&quot;2012-12-17T07:18:24.574940Z&quot;,
+//        &quot;_owner&quot;: &quot;JPwLMxPHmJDkGpwk&quot;
+//    }
+// }</code></pre>
+<p>Example using a form:
+
+</p>
+<pre><code>&lt;form method=&quot;POST&quot; action=&quot;/backlift/auth/registernoemail&quot;&gt;
+    Username: &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+    Password: &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;_next&quot; value=&quot;/home&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre>
+<a name="login"></a><h3>Login</h3>
+<pre><code>POST /backlift/auth/login</code></pre>
+<p>Signs in a user. See the section on <a href="authorization.html">authorization</a> for more detail.
+
+</p>
+<p>Parameters: (see <a href="validation.html#validation-rule-reference">validation reference</a>)
+
+</p>
+<pre><code class="javascript">username: {type: 'identifier', required_if_empty: 'email'}
+email: {type: 'email', required_if_empty: 'username'}
+password: {type: 'password', required: yes}
+</code></pre>
+
+<p>Example using AJAX:
+
+</p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;/backlift/auth/login&quot;, 
+    data: {
+        username: &quot;username&quot;,
+        password: &quot;password&quot;
+    },
+    success: function(result) { 
+        console.log(result);
+    } 
+});
+
+// result: (same as register)
+// {
+//    &quot;id&quot;:&quot;JPwLMxPHmJDkGpwk&quot;
+//    &quot;email&quot;: &quot;user@example.com&quot;,
+//    &quot;profile&quot;: { 
+//        &quot;username&quot;: &quot;username&quot;,
+//        &quot;_owner&quot;: &quot;JPwLMxPHmJDkGpwk&quot;,
+//        ...
+//    },
+//    ...
+// }</code></pre>
+<p>Example using a form:
+
+</p>
+<pre><code>&lt;form method=&quot;POST&quot; action=&quot;/backlift/auth/login&quot;&gt;
+    Username: &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+    Password: &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;_next&quot; value=&quot;/home&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre>
+
+<a name="the-backlift-command-line-utility"></a><h1>The Backlift Command Line Utility</h1>
+<p>The Backlift Command Line Interface (CLI) is an alternative for developers that are comfortable working in the terminal. Currently the CLI is the fastest way to synchronize your application changes with Backlift. The CLI requires Python 2.6.1 or later (all Macintintosh computers with OS X 10.6 or later come with this installed by default).
+
+</p>
+<p>To install the CLI, open up your terminal and type:
+
+</p>
+<pre><code>sudo easy_install backlift</code></pre>
+<p>Alternatively, you can use pip to install the Backlift CLI into a virtual environment.
+
+</p>
+<p>Once you have backlift installed, create an account at <a href="https://backlift.com">backlift.com</a> by clicking on the &#39;Sign-in&#39; button in the upper right corner. You will need a registration key. In order to obtain one please click the &#39;Get Early Access&#39; link and supply your email address. We will send you a key as soon as possible.
+
+</p>
+<p>Once you have your api-key, setup backlift with the command:
+
+</p>
+<pre><code>backlift setup &lt;api-key&gt;</code></pre>
+<p>Now you&#39;re ready to create new apps and upload them to backlift.
+
+</p>
+<p>From time to time you should make sure that you have the most recent version of the Backlift CLI. You can check that by typing <code>backlift --version</code>. It should match the &#39;Backlift CLI current version&#39; listed on your account dashboard. You can update your Backlift CLI by entering the command 
+
+</p>
+<pre><code>sudo easy_install --update backlift.</code></pre>
+<a name="create-and-upload-a-new-app"></a><h3>Create and Upload a new app</h3>
+<p>Create a new app with the command:
+
+</p>
+<pre><code>backlift create newapp</code></pre>
+<p>This will create a new folder in the current directory called &#39;newapp&#39; and begin downloading the backlift default project template. Once the project template has finished downloading, check it out by opening the &#39;newapp&#39; folder with a text editor.
+
+</p>
+<p>To see this app running on a public web server, first change directories into the &#39;newapp&#39; folder and type &#39;backlift push&#39;.
+
+</p>
+<pre><code>cd newapp
+backlift push</code></pre>
+<p>This will upload the content of the &#39;newapp&#39; folder to Backlift. Alternatively you can use the command:
+    <code>backlift watch</code>
+
+</p>
+<p>The watch command will first upload the &#39;newapp&#39; folder and then wait for changes to the project. Any time you edit and save a file in the &#39;newapp&#39; folder while the watch command is running, your changes will automatically by synced to Backlift.
+
+
+</p>
+<a name="view-and-manage-your-app"></a><h3>View and manage your app</h3>
+<p>You can launch a browser to view your app by typing:
+
+</p>
+<pre><code>backlift open</code></pre>
+<p>You can alternatively view the website&#39;s admin page by typing:
+
+</p>
+<pre><code>backlift admin</code></pre>
+<p>That&#39;s all there is to getting started. The demo template contains a tutorial that will show you how to build a backbone.js app with Backlift. You can run it by typing:
+
+</p>
+<pre><code>backlift create:backbone-demo demoapp</code></pre>
 
 </div>
         <footer id="footer">

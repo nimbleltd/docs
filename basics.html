@@ -36,20 +36,7 @@
                                 
                                     <li><a href="/docs/readme.html#introduction">Introduction</a></li>
                                 
-                            </ol>
-                        
-                    </li>
-                
-                    <li>
-                        <a href="/docs/readme.html#getting-started">Getting Started</a>
-                        
-                            <ol>
-                                
-                                    <li><a href="/docs/readme.html#setup-the-backlift-command-line-utility">Setup the Backlift Command Line Utility</a></li>
-                                
-                                    <li><a href="/docs/readme.html#create-and-upload-a-new-app">Create and Upload a new app</a></li>
-                                
-                                    <li><a href="/docs/readme.html#view-and-manage-your-app">View and manage your app</a></li>
+                                    <li><a href="/docs/readme.html#getting-started-with-dropbox">Getting started with Dropbox</a></li>
                                 
                             </ol>
                         
@@ -60,17 +47,30 @@
                         
                             <ol>
                                 
-                                    <li><a href="/docs/basics.html#app-templates">App templates</a></li>
+                                    <li><a href="/docs/basics.html#creating-an-app">Creating an app</a></li>
                                 
-                                    <li><a href="/docs/basics.html#project-layout">Project layout</a></li>
+                                    <li><a href="/docs/basics.html#backlift-variables-and-the-configyml-file">Backlift variables and the config.yml file</a></li>
                                 
                                     <li><a href="/docs/basics.html#compilers-and-optimization">Compilers and optimization</a></li>
                                 
                                     <li><a href="/docs/basics.html#the-admin-site">The admin site</a></li>
                                 
-                                    <li><a href="/docs/basics.html#data-persistence">Data persistence</a></li>
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/persistence.html#data-persistence">Data persistence</a>
+                        
+                            <ol>
                                 
-                                    <li><a href="/docs/basics.html#special-object-attributes">Special object attributes</a></li>
+                                    <li><a href="/docs/persistence.html#collections-and-models">Collections and models</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#the-persistence-api">The persistence API</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#persistence-with-backbonejs">Persistence with Backbone.js</a></li>
+                                
+                                    <li><a href="/docs/persistence.html#special-object-attributes">Special object attributes</a></li>
                                 
                             </ol>
                         
@@ -112,61 +112,84 @@
                         
                     </li>
                 
+                    <li>
+                        <a href="/docs/api.html#backlift-api">Backlift API</a>
+                        
+                            <ol>
+                                
+                                    <li><a href="/docs/api.html#persistence">Persistence</a></li>
+                                
+                                    <li><a href="/docs/api.html#authorization-and-users">Authorization and Users</a></li>
+                                
+                            </ol>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="/docs/commandline.html#the-backlift-command-line-utility">The Backlift Command Line Utility</a>
+                        
+                            <ol>
+                                
+                            </ol>
+                        
+                    </li>
+                
             </ol>
         </nav>
     </div>
 
 <article id="content">
     <a name="backlift-basics"></a><h1>Backlift basics</h1>
-<a name="app-templates"></a><h2>App templates</h2>
-<p>Backlift comes with a set of examples and starter templates that you can access directly with the backlift create command. Just type:
+<a name="creating-an-app"></a><h2>Creating an app</h2>
+<p>You can create a new app with Dropbox using the <a href="https://www.backlift.com/dashboard/createapp">create new app</a> form. Your app&#39;s files will be placed in the <code>/Apps/Backlift</code> folder of your Dropbox folder. While you are connected to the internet, any changes you make will automatically be synchronized to your Backlift app&#39;s website via Dropbox. 
 
 </p>
-<pre><code>backlift create:&lt;template_name&gt; newapp </code></pre>
-<p>You can find a list of available templates on github at <a href="http://github.com/backlift/backlift-templates">http://github.com/backlift/backlift-templates</a>.
+<p>To see your new app online, visit your app&#39;s website with a browser, such as Google Chrome. You can find a link to your app&#39;s website in the <a href="https://www.backlift.com/dashboard/apps">apps</a> section of your Backlift dashboard.
 
 </p>
-<p>We&#39;d love to add your example or starter template to the backlift command line utility. Just submit a pull request to the github project above. We&#39;ll evaluate it and, if we approve, we&#39;ll make it available directly by typing <code>backlift create:&lt;your app here&gt;</code>.
+<a name="app-templates"></a><h3>App templates</h3>
+<p>Backlift comes with a set of examples and starter templates. You can see the list of templates in the <a href="https://www.backlift.com/dashoboard/createapp">create new app</a> area of the dashboard. You can also find a list of available templates on github at <a href="http://github.com/backlift/backlift-templates">http://github.com/backlift/backlift-templates</a>. 
 
 </p>
-<a name="project-layout"></a><h2>Project layout</h2>
-<p>At the root of your app is a public folder. This contains all the publicly accessible files that make up your webapp. The public folder may include javascript or coffeescript files, templates, and css or less stylesheets. All public files will be compiled into css and javscript files when you run <code>backlift push</code>. For more information about this build process, please see the section on <a href="#compilers-and-optimization">compilers and optimization</a>. You can setup any folder structure for your public files, but we suggest the following system that is used in most backlift templates:
+<p>We&#39;d love to add your example or starter template to the backlift command line utility. Just submit a pull request to the backlift-templates project on github.
 
 </p>
-<ul>
-<li><p><strong>/public/app/scripts/ </strong>: At a minimum this folder should contain a main javascript or coffeescript file that defines a Backbone router. This folder can also contain .js or .coffee files for your Models, Collections, and Views.</p>
-</li>
-<li><p><strong>/public/app/templates/ </strong>: This folder should contain templates using either the underscore or handlebars template syntax. They should have the .jst or .handlebars extensions respectively. Templates are combined with data from your model and &quot;rendered&quot; into HTML. Also templates can be rendered heirarchically, allowing one template to act as a layout for the rest of the website. </p>
-</li>
-<li><p><strong>/public/app/styles/ </strong>: This folder should contain .css or .less files that define the look and layout of your webapp.</p>
-</li>
-</ul>
-<p>There are a few additional project files:
+<a name="your-app39s-url"></a><h3>Your app&#39;s URL</h3>
+<p>Backlift apps are assigned a unique and obscure URL based on the name you provide when creating the app. The format of the URL is:
 
 </p>
-<ul>
-<li><p><strong>the /public/libraries folder</strong>: This is where third party libraries, such as bootstrap.css and backbone.js go.</p>
-</li>
-<li><p><strong>the /public/setup.js file</strong>: For some backlift templates, a setup javascript file is used to create the App namespace.</p>
-</li>
-<li><p><strong>the config.yml file</strong>: This is the configuration file that determines how your project is packaged, and can be used to define server side validation rules.</p>
-</li>
-</ul>
-<p>After your files are uploaded using <code>backlift push</code> they will be publicly accessible at:
+<pre><code>&lt;appname&gt;-&lt;random_string&gt;.backliftapp.com</code></pre>
+<p>This URL is not easy to guess, so you won&#39;t have unexpected visitors to your website while it&#39;s still in development. However it&#39;s publicly accessible, so you can share your work with others by sending them the URL. 
 
 </p>
-<pre><code>https://&lt;your_app_id&gt;.backliftapp.com/public/&lt;file_path&gt; </code></pre>
-<p>This avoids conflicts between your public files, and paths that you might set up using your backbone router.
+<p>In the future backlift will support custom URLs using your own domain.
 
 </p>
-<p>You may have noticed that index.html was not on the above list. If no index.html file exists in the project, backlift will create one automatically that includes links to the scripts, styles, templates that were generated based on your config.yml file.
+<a name="project-layout"></a><h3>Project layout</h3>
+<p>Files and folders within your app&#39;s folder can be layed out any way you like. Any files you add to your app folder will be accessible via the same path from your app&#39;s URL. For example if you create an &quot;about.html&quot; file in the /pages folder of your app, that file will be available by browsing to:
+
+</p>
+<pre><code>&lt;your-app&gt;.backliftapp.com/pages/about.html</code></pre>
+<a name="backlift-variables-and-the-configyml-file"></a><h2>Backlift variables and the config.yml file</h2>
+<p>If you look at the index.html file from the simple-site template, you will see template variables, such as the {{&nbsp;scripts&nbsp;}} and {{&nbsp;styles&nbsp;}} variables. These variables help you maintain your website by keeping track of your project files in a central place, the config.yml file. When your html page is rendered, Backlift will substitute those variables with appropriate data from the config.yml file. For example, the {{&nbsp;scripts&nbsp;}} variable will be replaced by a list of <code>&lt;script&gt;</code> tags, one for each file listed in the config.yml scripts variable.
+
+</p>
+<p>For a list of Backlift variables, please see the <a href="variables.html">variables reference</a>.
+
+</p>
+<p>For more information about the configuration options available in the config.yml file, see the <a href="configuration.html">configuration reference</a>.
+
+</p>
+<a name="the-static-folder"></a><h3>The Static folder</h3>
+<p>Normally you may use Backlift variables in any html file that you add to your app. However, static files, like javascript, css and image files, shouldn&#39;t need to use the Backlift template variables. To speed up rendering of these pages, and to make better use of caching mechanisms, Backlift allows you to specify a static folder. Files within the static folder will not be rendered with the Backlift variables. The static folder can be set in your config.yml file. The default static folder is /public.
 
 </p>
 <a name="compilers-and-optimization"></a><h2>Compilers and optimization</h2>
-<p>When you run <code>backlift push</code> your code is uploaded to the backlift server and optionally compiled and optimized. During the compilation phase, files with known extensions are compiled into javascript or css. During the optimization phase, javascript and css files are concatenated and minified. 
+<p>After your changes are uploaded via Dropbox or the CLI, Backlift will compile certain files and optionally optimize your javascript and css.
 
 </p>
-<p>The following is a list of the known file extensions, the type of file generated, and the associated compiler:
+<a name="compilation-phase"></a><h3>Compilation phase</h3>
+<p>During the compilation phase, files with known extensions are compiled into javascript or css. The following is a list of the known file extensions, the type of file generated, and the associated compiler:
 
 </p>
 <ul>
@@ -175,17 +198,14 @@
 <li>.handlebars --&gt; .js (<a href="http://handlebarsjs.com/">handlebars</a> template compiler)</li>
 <li>.less --&gt; .css (<a href="http://lesscss.org/">less</a> compiler)</li>
 </ul>
-<p>Backlift uses the YUI compressor to minify the concatenated javascript and css files.
-
-</p>
 <p>You can control which files are passed to the compilers by adding a <code>compile</code> directive to your project&#39;s config.yml file. The compile directive should include a list of files that will be compiled. The default, if no compile directive is specified, includes the following:
 
 </p>
 <pre><code class="no-highlight">compile:
-- public/**/*.jst
-- public/**/*.handlebars
-- public/**/bootstrap*.less
-- public/**/*.coffee
+- /**/*.jst
+- /**/*.handlebars
+- /**/bootstrap*.less
+- /**/*.coffee
 </code></pre>
 
 <p>(Note that only the main bootstrap.less file will typically be compiled. This is because the bootstrap.less file imports several .less components. Attempting to pass those component .less files directly to the less compiler will result in an error.)
@@ -194,69 +214,40 @@
 <p>Typically it will not be necessary to adjust the compile configuration. If no files of a particular kind exist, the compiler for that file type will not be invoked.
 
 </p>
-<p>Optimization can be enabled or disabled using the <code>optimize</code> setting within config.yml.
+<a name="compilation-results"></a><h3>Compilation results</h3>
+<p>The .js and .css files generated by the compilation phase will be added to the {{&nbsp;scripts&nbsp;}} and {{&nbsp;styles&nbsp;}} Backlift variables. 
+
+</p>
+<p>The scripts generated by the Underscore template compiler include code that adds the template to a global JST object. To use the template, simply call the function with the same name as the original template file, and pass it the template parameters to be rendered. For example, the file &quot;profile.jst&quot; will create a profile template function that can be used like so:
+
+</p>
+<pre><code>var rendered = JST.profile({username: &quot;Cole&quot;, hometown: &quot;San Francisco&quot;});
+$(&quot;#profile-div&quot;).html(rendered);</code></pre>
+<p>To use the scripts generated by the handlebars compiler, see the <a href="http://handlebarsjs.com/">handlebars documentation</a>. You will need to include the handlebars.js script in your config.yml scripts list. Here is an example of a &quot;profile.handlebars&quot; template in use:
+
+</p>
+<pre><code>var rendered = Handlebars.templates.profile({
+    username: &quot;Cole&quot;,
+    hometown: &quot;San Francisco&quot;
+});
+$(&quot;#profile-div&quot;).html(rendered);</code></pre>
+<a name="optimization-phase"></a><h3>Optimization phase</h3>
+<p>During the optimization phase, javascript and css files are concatenated and minified. Optimization can be enabled or disabled using the <code>optimize</code> setting within config.yml.
 
 </p>
 <pre><code>optimize: on</code></pre>
 <p>By default optimization is disabled. This reduces the time required to build your webapp, and avoides the obscure code generated by minification. Optimization should not be used during development.
 
 </p>
-<p>If you do not include an index.html file in your project, one will be generated automatically that includes the results of the compile and optimize process. If you manually specify an index.html file, be sure to link the files generated by the compiler and optimizer. Compiled files will be named the same as their source file except for the extension. The optimizer will generate two files, <code>\public\optimized-scripts.js</code> and <code>\public\optmized-styles.css</code>.
+<p>Backlift uses the YUI compressor to minify and concatenate javascript and css files. The optimizer will generate two files, <code>\public\optimized-scripts.js</code> and <code>\public\optmized-styles.css</code>. The {{&nbsp;scripts&nbsp;}} and {{&nbsp;styles&nbsp;}} Backlift variables will include only these two files if the optimizer is enabled.
 
 </p>
 <a name="the-admin-site"></a><h2>The admin site</h2>
-<p>Each app gets a unique admin page that can be used for debugging and, in the future, managing security features like validation and authorization. You can view your app&#39;s admin page by running:
+<p>Each app gets a unique admin page that can be used for debugging and, in the future, managing security features like validation and authorization. You can view your app&#39;s admin page by clicking on the small gear icon under your app in the <a href="https://www.backlift.com/dashboard/apps">apps</a> section of your Backlift dashboard.
 
 </p>
-<pre><code>backlift admin</code></pre>
-<p>from your app&#39;s working folder, or visit
-
+<p>As you develop your app, the admin page will change to reflect your app&#39;s collections and request history. This makes it a valuable debugging tool.
 </p>
-<pre><code>https://www.backlift.com/admin#&lt;app_id&gt;</code></pre>
-<p>As you develop your app, this page will change to reflect your app&#39;s collections and request history. This makes it a valuable debugging tool.
-
-
-</p>
-<a name="data-persistence"></a><h2>Data persistence</h2>
-<p>When communicating with the Backlift server, as long as you prefix your AJAX urls with &quot;/backliftapp/&quot;, the backlift server will automatically store and fetch any json data that you send. For example, in backbone, you can set the url attribute of your collections, or the urlRoot attribute of your models using the &quot;/backliftapp/&quot; prefix and then use backbone&#39;s standard save or create methods.
-
-</p>
-<p>Specifically:
-
-</p>
-<ul>
-<li><p>GET /backliftapp/&lt;collection&gt;: will retrieve a list of the items in the collection.</p>
-</li>
-<li><p>POST /backliftapp/&lt;collection&gt;: will create a new item and add it to the collection.</p>
-</li>
-<li><p>PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update an item in the collection.</p>
-</li>
-<li><p>DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete an item.</p>
-</li>
-</ul>
-<p>The data should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
-
-</p>
-<p>Backlift stores the data as JSON documents. That means you don&#39;t need to spend time defining the schema in advance. Backlift will happily persist any object with any set of attributes and make it available for retreival. Later when you want to deploy your app in a production environment, you can setup validation via the config.yml config file or the admin panel. (coming soon!)
-
-
-</p>
-<a name="special-object-attributes"></a><h2>Special object attributes</h2>
-<p>Each time the backlift server persists a new object, a few attributes are applied automatically:
-
-</p>
-<ul>
-<li><p><strong>&#39;id&#39;</strong>: If no id is set, the server will assign a unique uuid to each model and store it in the &#39;id&#39; attribute. If there is an id, backlift will ensure that it is unique. </p>
-</li>
-<li><p><strong>&#39;_owner&#39;</strong>: This attribute is automatically assigned to the currently logged-in user&#39;s id attribute, if there is a currently logged-in user. This value is read-only.</p>
-</li>
-<li><p><strong>&#39;_created&#39;</strong>: When a new object is created, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
-</li>
-<li><p><strong>&#39;_modified&#39;</strong>: Each time an object is updated, this attribute is set with the current date and time in ISO standard format. This value is read-only.</p>
-</li>
-<li><p><strong>&#39;_id&#39;</strong>: Backlift mirrors the id attribute in an &#39;_id&#39; attribute. The &#39;_id&#39; attribute is the primary attribute used to store and retrieve data by the backlift database. In the future this attribute may be filtered out, so don&#39;t use it.</p>
-</li>
-</ul>
 
 </article>
 

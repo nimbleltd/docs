@@ -73,6 +73,8 @@ Backlift exposes the following API to facilitate user creation and management. T
 
 ## Permissions and access control
 
+> **Changes pending**: It is likely that _groups and _group_permissions will be deprecated. In practice groups are infrequently used and they complicate the access control system. 12/17/12
+
 Backlift's authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
 
 Backlift uses the following attributes on objects in order to control access:
