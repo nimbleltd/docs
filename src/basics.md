@@ -8,7 +8,7 @@ To see your new app online, visit your app's website with a browser, such as Goo
 
 ### App templates
 
-Backlift comes with a set of examples and starter templates. You can see the list of templates in the [create new app](https://www.backlift.com/dashoboard/createapp) area of the dashboard. You can also find a list of available templates on github at http://github.com/backlift/backlift-templates. 
+Backlift comes with a set of examples and starter templates. You can see the list of templates in the [create new app](https://www.backlift.com/dashboard/createapp) area of the dashboard. You can also find a list of available templates on github at http://github.com/backlift/backlift-templates. 
 
 We'd love to add your example or starter template to the backlift command line utility. Just submit a pull request to the backlift-templates project on github.
 
