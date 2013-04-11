@@ -33,9 +33,9 @@
 
 </p>
 <ul>
-<li><strong>Asynchronous updates:</strong> Build apps that respond immediately to user actions while data is sent the the server in the background. </li>
+<li><strong>Asynchronous updates:</strong> Build apps that respond immediately to user actions while data is sent to the server in the background. </li>
 <li><strong>API discovery:</strong> Backlift will let you persist data without specifying the API up front. If you follow standard RESTful conventions, backlift will accept whatever data you throw at it.</li>
-<li><strong>Familiar libraries:</strong> Backlift currently works with <a href="http://backbonejs.org">Backbone.js</a>. We plan to integrate other javascript MVC libraries in the future.</li>
+<li><strong>Familiar libraries:</strong> Backlift currently works with <a href="http://backbonejs.org">Backbone.js</a>, <a href="http://angularjs.org/">Angular.js</a> and <a href="http://knockoutjs.com/">Knockout.js</a>. We plan to integrate other javascript MVC libraries in the future.</li>
 </ul>
 <p>Backlift&#39;s goals are to facilitate:
 
@@ -276,12 +276,6 @@ console.log(date.toJSON()));    // 2012-12-18T05:36:47.946Z</code></pre>
 <p>The choice to go with ISO 8601 was somewhat arbitrary. There are several date time formats, and no particular format is prescribed in the JSON specification. We chose this format partly because it&#39;s what Date.toJSON() generates.</p>
 
 <a name="validation"></a><h1>Validation</h1>
-<blockquote>
-<p>   alert: This section documents preliminary functionality. 
-   The functionality described below is still under development.
-
-</p>
-</blockquote>
 <a name="backlift-collections-and-schemas"></a><h2>Backlift collections and schemas</h2>
 <p>Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don&#39;t need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection&#39;s schema.
 
@@ -388,12 +382,6 @@ A string that matches the regex pattern &#39;^[a-zA-Z0-9]{16}$&#39; or &#39;^[a-
 </p>
 
 <a name="authorization"></a><h1>Authorization</h1>
-<blockquote>
-<p>   alert: This section documents preliminary functionality. 
-   The functionality described below is still under development.
-
-</p>
-</blockquote>
 <p>The authorization plugin provides an API for registering and establishing sessions for users, storing private and public user data, and setting permissions on data objects.
 
 </p>
@@ -459,11 +447,6 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </li>
 </ul>
 <a name="permissions-and-access-control"></a><h2>Permissions and access control</h2>
-<blockquote>
-<p><strong>Changes pending</strong>: It is likely that _groups and _group_permissions will be deprecated. In practice groups are infrequently used and they complicate the access control system. 12/17/12
-
-</p>
-</blockquote>
 <p>Backlift&#39;s authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
 
 </p>

@@ -6,9 +6,9 @@ Backlift wants to make building and deploying websites easier, faster and more c
 
 Backlift's server, templates and helper libraries support:
 
-* **Asynchronous updates:** Build apps that respond immediately to user actions while data is sent the the server in the background. 
+* **Asynchronous updates:** Build apps that respond immediately to user actions while data is sent to the server in the background. 
 * **API discovery:** Backlift will let you persist data without specifying the API up front. If you follow standard RESTful conventions, backlift will accept whatever data you throw at it.
-* **Familiar libraries:** Backlift currently works with [Backbone.js](http://backbonejs.org). We plan to integrate other javascript MVC libraries in the future.
+* **Familiar libraries:** Backlift currently works with [Backbone.js](http://backbonejs.org), [Angular.js](http://angularjs.org/) and [Knockout.js](http://knockoutjs.com/). We plan to integrate other javascript MVC libraries in the future.
 
 Backlift's goals are to facilitate:
 

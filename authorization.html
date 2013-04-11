@@ -140,12 +140,6 @@
 
 <article id="content">
     <a name="authorization"></a><h1>Authorization</h1>
-<blockquote>
-<p>   alert: This section documents preliminary functionality. 
-   The functionality described below is still under development.
-
-</p>
-</blockquote>
 <p>The authorization plugin provides an API for registering and establishing sessions for users, storing private and public user data, and setting permissions on data objects.
 
 </p>
@@ -211,11 +205,6 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </li>
 </ul>
 <a name="permissions-and-access-control"></a><h2>Permissions and access control</h2>
-<blockquote>
-<p><strong>Changes pending</strong>: It is likely that _groups and _group_permissions will be deprecated. In practice groups are infrequently used and they complicate the access control system. 12/17/12
-
-</p>
-</blockquote>
 <p>Backlift&#39;s authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
 
 </p>

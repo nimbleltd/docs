@@ -1,8 +1,5 @@
 # Authorization
 
->    alert: This section documents preliminary functionality. 
->    The functionality described below is still under development.
-
 The authorization plugin provides an API for registering and establishing sessions for users, storing private and public user data, and setting permissions on data objects.
 
 All passwords are salted and hashed before being stored using [bcrypt](http://bcrypt.sourceforge.net/). Currently all requests to backlift apps are encrypted with ssl using backlift's certificates. (All backlift app urls use the https:// protocol) User session cookies are encrypted and managed by the backlift app server via this API. 
@@ -72,8 +69,6 @@ Backlift exposes the following API to facilitate user creation and management. T
 
 
 ## Permissions and access control
-
-> **Changes pending**: It is likely that _groups and _group_permissions will be deprecated. In practice groups are infrequently used and they complicate the access control system. 12/17/12
 
 Backlift's authorization module allows you to control access to persisted objects. In backlift you authorize access to data, and build behaviors around that. A user profile object may be marked as readonly, which means that the server will reject attempts to update the profile object unless the currently logged-in user is the owner of that profile object.
 

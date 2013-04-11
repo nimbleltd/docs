@@ -1,8 +1,5 @@
 # Validation
 
->    alert: This section documents preliminary functionality. 
->    The functionality described below is still under development.
-
 ## Backlift collections and schemas
 
 Collections are like tables in a database and are defined by a set of attributes, or fields. In backlift individual models in a collection don't need to contain all the attributes of their sibling models. However, if any of the models in a collection contain an attribute, it will be considered a part of that collection's schema.
