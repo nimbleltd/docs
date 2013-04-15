@@ -16,7 +16,7 @@ Currently backlift validation rules must be created using the config.yml configu
         (other rules...)
       (other collections...)
 
-Each sub group under 'collections' defines a new collection. When an AJAX request is sent to a /backliftapp/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
+Each sub group under 'collections' defines a new collection. When an AJAX request is sent to a /backlift/data/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
 
 For a discussion of the permissions attributes used during authorization, see the [authorization](authorization.html) section.
 

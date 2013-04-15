@@ -117,7 +117,7 @@
                         
                             <ol>
                                 
-                                    <li><a href="/docs/api.html#persistence">Persistence</a></li>
+                                    <li><a href="/docs/api.html#data-persistence">Data Persistence</a></li>
                                 
                                     <li><a href="/docs/api.html#authorization-and-users">Authorization and Users</a></li>
                                 
@@ -170,8 +170,8 @@
 <p>For PUT or POST requests, parameters must be sent in the body of the request and can either be a JSON object, or a list of URL encoded parameters. All responses will be JSON.
 
 </p>
-<a name="persistence"></a><h2>Persistence</h2>
-<p>List of persistence API entries:
+<a name="data-persistence"></a><h2>Data Persistence</h2>
+<p>List of data persistence API entries:
 
 </p>
 <ul>
@@ -184,7 +184,7 @@
 <p></p>
 
 <a name="retrieve-all-models-in-a-collection"></a><h3>Retrieve all models in a collection</h3>
-<pre><code>GET /backliftapp/&lt;collection&gt;</code></pre>
+<pre><code>GET /backlift/data/&lt;collection&gt;</code></pre>
 <p>Returns a list of models in a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -193,7 +193,7 @@
 </p>
 <pre><code>$.ajax({
     type: &quot;GET&quot;,
-    url: &quot;/backliftapp/todos&quot;,
+    url: &quot;/backlift/data/todos&quot;,
     success: function(result) { 
         console.log(result); 
     }
@@ -212,7 +212,7 @@
 //    ...
 // }]</code></pre>
 <a name="create-a-new-model"></a><h3>Create a new model</h3>
-<pre><code>POST /backliftapp/&lt;collection&gt;</code></pre>
+<pre><code>POST /backlift/data/&lt;collection&gt;</code></pre>
 <p>Creates a new model for a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -231,7 +231,7 @@
 </p>
 <pre><code>$.ajax({
     type: &quot;POST&quot;,
-    url: &quot;/backliftapp/todos&quot;, 
+    url: &quot;/backlift/data/todos&quot;, 
     data: {
         title: &quot;Write Code&quot;,
         order: 3
@@ -261,7 +261,7 @@
 </li>
 </ul>
 <a name="retrieve-a-model-from-a-collection"></a><h3>Retrieve a model from a collection</h3>
-<pre><code>GET /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<pre><code>GET /backlift/data/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
 <p>Returns a models. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -270,7 +270,7 @@
 </p>
 <pre><code>$.ajax({
     type: &quot;GET&quot;,
-    url: &quot;/backliftapp/todos/8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+    url: &quot;/backlift/data/todos/8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
     success: function(result) { 
         console.log(result); 
     }
@@ -284,7 +284,7 @@
 //    ...
 // }</code></pre>
 <a name="update-a-model"></a><h3>Update a model</h3>
-<pre><code>PUT /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<pre><code>PUT /backlift/data/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
 <p>Updates a model. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -303,7 +303,7 @@
 </p>
 <pre><code>$.ajax({
     type: &quot;PUT&quot;,
-    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    url: &quot;/backlift/data/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
     data: {
         title: &quot;Write MORE Code&quot;,
         order: 1
@@ -333,7 +333,7 @@
 </li>
 </ul>
 <a name="delete-a-model"></a><h3>Delete a model</h3>
-<pre><code>DELETE /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<pre><code>DELETE /backlift/data/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
 <p>Removes a model from it&#39;s collection. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -342,7 +342,7 @@
 </p>
 <pre><code>$.ajax({
     type: &quot;DELETE&quot;,
-    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    url: &quot;/backlift/data/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
     success: function(result) { 
         console.log(&quot;Deleted!&quot;);
     } 

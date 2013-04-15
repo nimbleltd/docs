@@ -117,7 +117,7 @@
                         
                             <ol>
                                 
-                                    <li><a href="/docs/api.html#persistence">Persistence</a></li>
+                                    <li><a href="/docs/api.html#data-persistence">Data Persistence</a></li>
                                 
                                     <li><a href="/docs/api.html#authorization-and-users">Authorization and Users</a></li>
                                 
@@ -156,7 +156,7 @@
     message: {type: &#39;string&#39;, max: 140, required: yes}
     (other rules...)
   (other collections...)</code></pre>
-<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backliftapp/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
+<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backlift/data/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
 
 </p>
 <p>For a discussion of the permissions attributes used during authorization, see the <a href="authorization.html">authorization</a> section.

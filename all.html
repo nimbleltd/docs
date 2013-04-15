@@ -191,7 +191,7 @@ $(&quot;#profile-div&quot;).html(rendered);</code></pre>
 <pre><code>{&quot;books&quot;: [
     {&quot;name&quot;: &quot;The Corrections&quot;,
      &quot;author&quot;: &quot;Jonathan Franzen&quot;,
-     &quot;status&quot;: &quot;cheked-out&quot;,
+     &quot;status&quot;: &quot;checked-out&quot;,
      &quot;waiting&quot;: &quot;Cole Krumbholz&quot;},
 
     {&quot;name&quot;: &quot;Freedom&quot;,
@@ -203,15 +203,15 @@ $(&quot;#profile-div&quot;).html(rendered);</code></pre>
 
 </p>
 <ul>
-<li><p>GET /backliftapp/&lt;collection&gt;: will retrieve a list of the models in a collection.</p>
+<li><p>GET /backlift/data/&lt;collection&gt;: will retrieve a list of the models in a collection.</p>
 </li>
-<li><p>POST /backliftapp/&lt;collection&gt;: will create a new model and add it to a collection.</p>
+<li><p>POST /backlift/data/&lt;collection&gt;: will create a new model and add it to a collection.</p>
 </li>
-<li><p>GET /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.</p>
+<li><p>GET /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.</p>
 </li>
-<li><p>PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.</p>
+<li><p>PUT /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.</p>
 </li>
-<li><p>DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.</p>
+<li><p>DELETE /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.</p>
 </li>
 </ul>
 <p>The data for PUT and POST requests should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
@@ -224,7 +224,7 @@ $(&quot;#profile-div&quot;).html(rendered);</code></pre>
 
 </p>
 <a name="persistence-with-backbonejs"></a><h2>Persistence with Backbone.js</h2>
-<p>When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with &quot;/backliftapp/&quot;. Backbone&#39;s default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work &quot;out of the box&quot;. 
+<p>When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with &quot;/backlift/data/&quot;. Backbone&#39;s default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work &quot;out of the box&quot;. 
 
 </p>
 <p>The following example shows how to set the url attribute of your collections and then use backbone&#39;s standard save and fetch methods.
@@ -234,18 +234,18 @@ $(&quot;#profile-div&quot;).html(rendered);</code></pre>
 
 var MyBooks = Backbone.Collection.extend({
     model: MyBook,
-    url: &quot;/backliftapp/books&quot;
+    url: &quot;/backlift/data/books&quot;
 });
 
 var books = new MyBooks();
-books.fetch();   // will issue a GET /backliftapp/books
+books.fetch();   // will issue a GET /backlift/data/books
 
 var book = new MyBook({
     title: &quot;The Corrections&quot;
 });
 
 books.add(book);
-book.save();   // will issue a POST /backliftapp/books</code></pre>
+book.save();   // will issue a POST /backlift/data/books</code></pre>
 <a name="special-object-attributes"></a><h2>Special object attributes</h2>
 <p>Each time the backlift server persists a new object, a few attributes are applied automatically:
 
@@ -292,7 +292,7 @@ console.log(date.toJSON()));    // 2012-12-18T05:36:47.946Z</code></pre>
     message: {type: &#39;string&#39;, max: 140, required: yes}
     (other rules...)
   (other collections...)</code></pre>
-<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backliftapp/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
+<p>Each sub group under &#39;collections&#39; defines a new collection. When an AJAX request is sent to a /backlift/data/collection URL, backlift searches for the collection in this list. When found, the data attributes are matched against the rule names in order to select validation tests. If the data passes the tests for all attributes, the operation is permitted. 
 
 </p>
 <p>For a discussion of the permissions attributes used during authorization, see the <a href="authorization.html">authorization</a> section.
@@ -534,8 +534,8 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 <p>For PUT or POST requests, parameters must be sent in the body of the request and can either be a JSON object, or a list of URL encoded parameters. All responses will be JSON.
 
 </p>
-<a name="persistence"></a><h2>Persistence</h2>
-<p>List of persistence API entries:
+<a name="data-persistence"></a><h2>Data Persistence</h2>
+<p>List of data persistence API entries:
 
 </p>
 <ul>
@@ -548,7 +548,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 <p></p>
 
 <a name="retrieve-all-models-in-a-collection"></a><h3>Retrieve all models in a collection</h3>
-<pre><code>GET /backliftapp/&lt;collection&gt;</code></pre>
+<pre><code>GET /backlift/data/&lt;collection&gt;</code></pre>
 <p>Returns a list of models in a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -557,7 +557,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </p>
 <pre><code>$.ajax({
     type: &quot;GET&quot;,
-    url: &quot;/backliftapp/todos&quot;,
+    url: &quot;/backlift/data/todos&quot;,
     success: function(result) { 
         console.log(result); 
     }
@@ -576,7 +576,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 //    ...
 // }]</code></pre>
 <a name="create-a-new-model"></a><h3>Create a new model</h3>
-<pre><code>POST /backliftapp/&lt;collection&gt;</code></pre>
+<pre><code>POST /backlift/data/&lt;collection&gt;</code></pre>
 <p>Creates a new model for a collection. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -595,7 +595,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </p>
 <pre><code>$.ajax({
     type: &quot;POST&quot;,
-    url: &quot;/backliftapp/todos&quot;, 
+    url: &quot;/backlift/data/todos&quot;, 
     data: {
         title: &quot;Write Code&quot;,
         order: 3
@@ -625,7 +625,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </li>
 </ul>
 <a name="retrieve-a-model-from-a-collection"></a><h3>Retrieve a model from a collection</h3>
-<pre><code>GET /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<pre><code>GET /backlift/data/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
 <p>Returns a models. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -634,7 +634,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </p>
 <pre><code>$.ajax({
     type: &quot;GET&quot;,
-    url: &quot;/backliftapp/todos/8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
+    url: &quot;/backlift/data/todos/8c064fd0-616f-4e18-91e5-959b5475516f&quot;,
     success: function(result) { 
         console.log(result); 
     }
@@ -648,7 +648,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 //    ...
 // }</code></pre>
 <a name="update-a-model"></a><h3>Update a model</h3>
-<pre><code>PUT /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<pre><code>PUT /backlift/data/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
 <p>Updates a model. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -667,7 +667,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </p>
 <pre><code>$.ajax({
     type: &quot;PUT&quot;,
-    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    url: &quot;/backlift/data/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
     data: {
         title: &quot;Write MORE Code&quot;,
         order: 1
@@ -697,7 +697,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </li>
 </ul>
 <a name="delete-a-model"></a><h3>Delete a model</h3>
-<pre><code>DELETE /backliftapp/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
+<pre><code>DELETE /backlift/data/&lt;collection&gt;/&lt;model_id&gt;</code></pre>
 <p>Removes a model from it&#39;s collection. See the section on <a href="persistence.html">persistence</a> for more detail.
 
 </p>
@@ -706,7 +706,7 @@ POST /backlift/auth/registeremailonly {&quot;email&quot;: &quot;...&quot;, &quot
 </p>
 <pre><code>$.ajax({
     type: &quot;DELETE&quot;,
-    url: &quot;/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
+    url: &quot;/backlift/data/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c&quot;, 
     success: function(result) { 
         console.log(&quot;Deleted!&quot;);
     } 

@@ -11,7 +11,7 @@ For example, if you were building a library app, you might have a books collecti
 	{"books": [
 		{"name": "The Corrections",
 		 "author": "Jonathan Franzen",
-		 "status": "cheked-out",
+		 "status": "checked-out",
 		 "waiting": "Cole Krumbholz"},
 
 		{"name": "Freedom",
@@ -23,15 +23,15 @@ For example, if you were building a library app, you might have a books collecti
 
 Data is stored and retrieved using the persistence API. It's not a formal API beacause any URL that matches the pattern below is acceptable:
 
-* GET /backliftapp/&lt;collection&gt;: will retrieve a list of the models in a collection.
+* GET /backlift/data/&lt;collection&gt;: will retrieve a list of the models in a collection.
 
-* POST /backliftapp/&lt;collection&gt;: will create a new model and add it to a collection.
+* POST /backlift/data/&lt;collection&gt;: will create a new model and add it to a collection.
 
-* GET /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.
+* GET /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.
 
-* PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.
+* PUT /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.
 
-* DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.
+* DELETE /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.
 
 The data for PUT and POST requests should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
 
@@ -41,7 +41,7 @@ Later when you want to deploy your app in a production environment, you can setu
 
 ## Persistence with Backbone.js
 
-When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with "/backliftapp/". Backbone's default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work "out of the box". 
+When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with "/backlift/data/". Backbone's default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work "out of the box". 
 
 The following example shows how to set the url attribute of your collections and then use backbone's standard save and fetch methods.
 
@@ -49,18 +49,18 @@ The following example shows how to set the url attribute of your collections and
 
 	var MyBooks = Backbone.Collection.extend({
 		model: MyBook,
-		url: "/backliftapp/books"
+		url: "/backlift/data/books"
 	});
 
 	var books = new MyBooks();
-	books.fetch();   // will issue a GET /backliftapp/books
+	books.fetch();   // will issue a GET /backlift/data/books
 
 	var book = new MyBook({
 		title: "The Corrections"
 	});
 
 	books.add(book);
-	book.save();   // will issue a POST /backliftapp/books
+	book.save();   // will issue a POST /backlift/data/books
 
 ## Special object attributes
 

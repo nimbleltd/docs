@@ -117,7 +117,7 @@
                         
                             <ol>
                                 
-                                    <li><a href="/docs/api.html#persistence">Persistence</a></li>
+                                    <li><a href="/docs/api.html#data-persistence">Data Persistence</a></li>
                                 
                                     <li><a href="/docs/api.html#authorization-and-users">Authorization and Users</a></li>
                                 
@@ -153,7 +153,7 @@
 <pre><code>{&quot;books&quot;: [
     {&quot;name&quot;: &quot;The Corrections&quot;,
      &quot;author&quot;: &quot;Jonathan Franzen&quot;,
-     &quot;status&quot;: &quot;cheked-out&quot;,
+     &quot;status&quot;: &quot;checked-out&quot;,
      &quot;waiting&quot;: &quot;Cole Krumbholz&quot;},
 
     {&quot;name&quot;: &quot;Freedom&quot;,
@@ -165,15 +165,15 @@
 
 </p>
 <ul>
-<li><p>GET /backliftapp/&lt;collection&gt;: will retrieve a list of the models in a collection.</p>
+<li><p>GET /backlift/data/&lt;collection&gt;: will retrieve a list of the models in a collection.</p>
 </li>
-<li><p>POST /backliftapp/&lt;collection&gt;: will create a new model and add it to a collection.</p>
+<li><p>POST /backlift/data/&lt;collection&gt;: will create a new model and add it to a collection.</p>
 </li>
-<li><p>GET /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.</p>
+<li><p>GET /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will retrieve a specific model from a collection.</p>
 </li>
-<li><p>PUT /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.</p>
+<li><p>PUT /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will update a model in a collection.</p>
 </li>
-<li><p>DELETE /backliftapp/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.</p>
+<li><p>DELETE /backlift/data/&lt;collection&gt;/&lt;item_id&gt;: will delete a model.</p>
 </li>
 </ul>
 <p>The data for PUT and POST requests should be sent in the request body, and can either be a JSON object or a url-encoded set of key-value pairs. 
@@ -186,7 +186,7 @@
 
 </p>
 <a name="persistence-with-backbonejs"></a><h2>Persistence with Backbone.js</h2>
-<p>When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with &quot;/backliftapp/&quot;. Backbone&#39;s default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work &quot;out of the box&quot;. 
+<p>When using Backbone.js to communicate with the Backlift server, you just need to prefix your urls with &quot;/backlift/data/&quot;. Backbone&#39;s default sync mechanism uses the URL scheme listed above. In fact, Backlift was built to allow backbone.js projects to work &quot;out of the box&quot;. 
 
 </p>
 <p>The following example shows how to set the url attribute of your collections and then use backbone&#39;s standard save and fetch methods.
@@ -196,18 +196,18 @@
 
 var MyBooks = Backbone.Collection.extend({
     model: MyBook,
-    url: &quot;/backliftapp/books&quot;
+    url: &quot;/backlift/data/books&quot;
 });
 
 var books = new MyBooks();
-books.fetch();   // will issue a GET /backliftapp/books
+books.fetch();   // will issue a GET /backlift/data/books
 
 var book = new MyBook({
     title: &quot;The Corrections&quot;
 });
 
 books.add(book);
-book.save();   // will issue a POST /backliftapp/books</code></pre>
+book.save();   // will issue a POST /backlift/data/books</code></pre>
 <a name="special-object-attributes"></a><h2>Special object attributes</h2>
 <p>Each time the backlift server persists a new object, a few attributes are applied automatically:
 

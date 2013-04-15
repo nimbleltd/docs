@@ -25,9 +25,9 @@ All requests must be sent via https. Some requests require a logged in user or a
 
 For PUT or POST requests, parameters must be sent in the body of the request and can either be a JSON object, or a list of URL encoded parameters. All responses will be JSON.
 
-## Persistence
+## Data Persistence
 
-List of persistence API entries:
+List of data persistence API entries:
 
 * [Retrieve all models in a collection](api.html#retrieve-all-models-in-a-collection)
 * [Create a new model](api.html#create-a-new-model)
@@ -39,7 +39,7 @@ List of persistence API entries:
 
 ### Retrieve all models in a collection
 
-    GET /backliftapp/<collection>
+    GET /backlift/data/<collection>
 
 Returns a list of models in a collection. See the section on [persistence](persistence.html) for more detail.
 
@@ -47,7 +47,7 @@ Example usage:
 
     $.ajax({
         type: "GET",
-        url: "/backliftapp/todos",
+        url: "/backlift/data/todos",
         success: function(result) { 
             console.log(result); 
         }
@@ -69,7 +69,7 @@ Example usage:
 
 ### Create a new model
 
-    POST /backliftapp/<collection>
+    POST /backlift/data/<collection>
 
 Creates a new model for a collection. See the section on [persistence](persistence.html) for more detail.
 
@@ -84,7 +84,7 @@ Example:
 
     $.ajax({
         type: "POST",
-        url: "/backliftapp/todos", 
+        url: "/backlift/data/todos", 
         data: {
             title: "Write Code",
             order: 3
@@ -114,7 +114,7 @@ Errors:
 
 ### Retrieve a model from a collection
 
-    GET /backliftapp/<collection>/<model_id>
+    GET /backlift/data/<collection>/<model_id>
 
 Returns a models. See the section on [persistence](persistence.html) for more detail.
 
@@ -122,7 +122,7 @@ Example usage:
 
     $.ajax({
         type: "GET",
-        url: "/backliftapp/todos/8c064fd0-616f-4e18-91e5-959b5475516f",
+        url: "/backlift/data/todos/8c064fd0-616f-4e18-91e5-959b5475516f",
         success: function(result) { 
             console.log(result); 
         }
@@ -139,7 +139,7 @@ Example usage:
 
 ### Update a model
 
-    PUT /backliftapp/<collection>/<model_id>
+    PUT /backlift/data/<collection>/<model_id>
 
 Updates a model. See the section on [persistence](persistence.html) for more detail.
 
@@ -154,7 +154,7 @@ Example:
 
     $.ajax({
         type: "PUT",
-        url: "/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c", 
+        url: "/backlift/data/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c", 
         data: {
             title: "Write MORE Code",
             order: 1
@@ -185,7 +185,7 @@ Errors:
 
 ### Delete a model
 
-    DELETE /backliftapp/<collection>/<model_id>
+    DELETE /backlift/data/<collection>/<model_id>
 
 Removes a model from it's collection. See the section on [persistence](persistence.html) for more detail.
 
@@ -193,7 +193,7 @@ Example:
 
     $.ajax({
         type: "DELETE",
-        url: "/backliftapp/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c", 
+        url: "/backlift/data/todos/4928bcd1-56f7-40e4-ba78-212bae096b5c", 
         success: function(result) { 
             console.log("Deleted!");
         } 
